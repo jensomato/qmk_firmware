@@ -213,7 +213,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case HOME_E:
             return TAPPING_TERM + 100;
         case NA_SWIT:
-            return 100;
+            return 200;
         default:
             return TAPPING_TERM;
     }
