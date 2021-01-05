@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      _______ ,DE_AT   ,DE_UNDS ,DE_LBRC ,DE_RBRC ,DE_CIRC ,DE_EXLM ,DE_LABK ,DE_RABK ,DE_EQL  ,DE_AMPR ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,DE_BSLS ,KC_PSLS ,DE_LCBR ,DE_RCBR ,DE_ASTR ,DE_QUES ,DE_LPRN ,DE_RPRN ,DE_MINS ,DE_COLN ,XXXXXXX ,
+     _______ ,A_BSLS  ,G_SLSH  ,S_LCBR  ,C_RCBR  ,DE_ASTR ,DE_QUES ,C_LPRN  ,S_RPRN  ,G_MINS  ,A_COLN  ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      _______ ,DE_HASH ,DE_DLR  ,DE_PIPE ,DE_TILD ,DE_GRV  ,DE_PLUS ,DE_PERC ,DE_DQUO ,DE_QUOT ,DE_SCLN ,_______ ,
   //├────────┼────────┼────────┼────────┼───┴────┬───┼────────┼────┼────────┼────────┼────────┼────────┼────────┤
@@ -100,3 +100,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
+void suspend_power_down_user(void) {
+    rgblight_disable_noeeprom();
+}
+
+void suspend_wakeup_init_user(void) {
+    rgblight_enable_noeeprom();
+}

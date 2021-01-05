@@ -1,3 +1,4 @@
+#include QMK_KEYBOARD_H
 #include "keymap_german.h"
 #include "quantum.h"
 #include "process_keycode/process_tap_dance.h"
@@ -38,6 +39,18 @@ enum td_keycodes {
     TD_SENTER,
     TD_APP,
     TD_PASS,
+    TD_LEADER,
+};
+
+enum custom_keycodes {
+    A_BSLS = SAFE_RANGE,
+    G_SLSH,
+    S_LCBR,
+    C_RCBR,
+    C_LPRN,
+    S_RPRN,
+    G_MINS,
+    A_COLN,
 };
 
 #define APP     TD(TD_APP)
@@ -52,7 +65,7 @@ enum td_keycodes {
 #define C_Y     C(DE_Y)
 #define C_Z     C(DE_Z)
 #define COPY    TD(TD_COPY)
-#define DEL     LT(_NAV, KC_DEL)
+#define DEL     LT(_NEO3, KC_DEL)
 #define ENTER   LT(_NUM, KC_ENT)
 #define ESC     LT(_NEO3, KC_ESC)
 #define ESCAPE  LT(_MOUSE, KC_ESC)
@@ -65,8 +78,10 @@ enum td_keycodes {
 #define HOME_N  RGUI_T(DE_N)
 #define HOME_H  LALT_T(DE_H)
 #define HOME_S  LALT_T(DE_S)
+#define LEADER  TD(TD_LEADER)
 #define MOUSE   TG(_MOUSE)
 #define CAPS    TD(TD_MOUSE)
+#define NA_BSPC LSFT_T(KC_BSPC)
 #define NA_TMUX TD(TD_CTL_A)
 #define NA_SWIT TD(TD_TAB)
 #define PASS    TD(TD_PASS)
