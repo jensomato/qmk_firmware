@@ -40,6 +40,7 @@ enum td_keycodes {
     TD_APP,
     TD_PASS,
     TD_LEADER,
+    TD_COMBO,
 };
 
 enum custom_keycodes {
@@ -51,6 +52,7 @@ enum custom_keycodes {
     S_RPRN,
     G_MINS,
     A_COLN,
+    MYCOMBO,
 };
 
 #define APP     TD(TD_APP)
@@ -65,6 +67,7 @@ enum custom_keycodes {
 #define C_Y     C(DE_Y)
 #define C_Z     C(DE_Z)
 #define COPY    TD(TD_COPY)
+//#define MYCOMBO    TD(TD_COMBO)
 #define DEL     LT(_NEO3, KC_DEL)
 #define ENTER   LT(_NUM, KC_ENT)
 #define ESC     LT(_NEO3, KC_ESC)
@@ -101,3 +104,5 @@ void cstab_finished(qk_tap_dance_state_t *state, void *user_data);
 void cstab_reset(qk_tap_dance_state_t *state, void *user_data);
 void select_finished(qk_tap_dance_state_t *state, void *user_data);
 void select_reset(qk_tap_dance_state_t *state, void *user_data);
+
+

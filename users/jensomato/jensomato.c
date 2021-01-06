@@ -186,6 +186,23 @@ void nav_ctla_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void combo_finished(qk_tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case SINGLE_TAP:
+            set_oneshot_mods(MOD_LSFT);
+            break;
+        default:
+            break;
+    }
+}
+
+void combo_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        default:
+            break;
+    }
+}
 // Define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
 qk_tap_dance_action_t tap_dance_actions[] = {
     //[CS_TAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, cstab_finished, cstab_reset),
@@ -200,6 +217,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_APP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, nav_app_finished, nav_app_reset),
     [TD_PASS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, nav_pass_finished, nav_pass_reset),
     [TD_LEADER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, leader_finished, leader_reset),
+    [TD_COMBO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, combo_finished, combo_reset),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -363,14 +381,23 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 enum combo_events {
     DOT_OSM,
     LEADER_COMBO,
+    COMBO_LCTL,
+    COMBO_RCTL,
+    COMBO_LSFT,
 };
 
+const uint16_t PROGMEM lctl_combo[] = {MYCOMBO, DE_I, COMBO_END};
+const uint16_t PROGMEM rctl_combo[] = {MYCOMBO, DE_T, COMBO_END};
+const uint16_t PROGMEM lsft_combo[] = {MYCOMBO, DE_E, COMBO_END};
 const uint16_t PROGMEM dot_osm_combo[] = {DE_DOT, DE_O, COMBO_END};
 const uint16_t PROGMEM leader_combo[] = {DE_P, DE_UE, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     [DOT_OSM] = COMBO_ACTION(dot_osm_combo),
     [LEADER_COMBO] = COMBO_ACTION(leader_combo),
+  [COMBO_LCTL] = COMBO_ACTION(lctl_combo),
+  [COMBO_RCTL] = COMBO_ACTION(rctl_combo),
+  [COMBO_LSFT] = COMBO_ACTION(lsft_combo),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
@@ -386,5 +413,30 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         qk_leader_start();
       }
       break;
+    case COMBO_LCTL:
+      clear_oneshot_mods();
+      if (pressed) {
+        add_mods(MOD_BIT(KC_LCTL));
+      } else {
+        unregister_mods(MOD_BIT(KC_LCTL));
+      }
+      break;
+    case COMBO_RCTL:
+      clear_oneshot_mods();
+      if (pressed) {
+        add_mods(MOD_BIT(KC_RCTL));
+      } else {
+        unregister_mods(MOD_BIT(KC_RCTL));
+      }
+      break;
+    case COMBO_LSFT:
+      clear_oneshot_mods();
+      if (pressed) {
+        add_mods(MOD_BIT(KC_LSFT));
+      } else {
+        unregister_mods(MOD_BIT(KC_LSFT));
+      }
+      break;
+
   }
 }

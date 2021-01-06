@@ -13,11 +13,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,DE_K    ,DE_DOT  ,DE_O    ,DE_COMM ,DE_Y    ,XXXXXXX ,                          XXXXXXX ,DE_V    ,DE_G    ,DE_C    ,DE_L    ,DE_Z    ,DE_SS   ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     ESC     ,HOME_H  ,HOME_A  ,HOME_E  ,HOME_I  ,DE_U    ,XXXXXXX ,                          XXXXXXX ,DE_D    ,HOME_T  ,HOME_R  ,HOME_N  ,HOME_S  ,HOME_F  ,
+     ESC     ,HOME_H  ,HOME_A  ,DE_E    ,DE_I    ,DE_U    ,XXXXXXX ,                          XXXXXXX ,DE_D    ,DE_T    ,HOME_R  ,HOME_N  ,HOME_S  ,HOME_F  ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LEAD ,DE_X    ,DE_Q    ,DE_AE   ,DE_UE   ,DE_OE   ,XXXXXXX ,XXXXXXX ,        XXXXXXX ,XXXXXXX ,DE_B    ,DE_P    ,DE_W    ,DE_M    ,DE_J    ,KC_LALT ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-     KC_LGUI ,KC_PPLS ,KC_PMNS ,KC_LGUI ,     BSPC    ,    DEL     ,LEADER  ,        SPACE   ,SPACE   ,    ENTER   ,     KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RGHT
+     KC_LGUI ,KC_PPLS ,KC_PMNS ,KC_LGUI ,     BSPC    ,    MYCOMBO   ,LEADER  ,        SPACE   ,SPACE   ,    ENTER   ,     KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RGHT
   //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   ),
 
