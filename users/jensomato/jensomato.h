@@ -8,14 +8,15 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _KOY 0
-#define _SHIFT 1
-#define _NUM 2
-#define _NEO3 3
-#define _NAV 4
-#define _MOUSE 5
-#define _NUM2 6
-#define _FKEYS 7
-#define _ADJUST 8
+#define _GAME 1
+#define _SHIFT 2
+#define _NUM 3
+#define _NEO3 4
+#define _NAV 5
+#define _MOUSE 6
+#define _NUM2 7
+#define _FKEYS 8
+#define _ADJUST 9
 // Define a type containing as many tapdance states as you need
 typedef enum {
     SINGLE_TAP = 1,
@@ -40,21 +41,13 @@ enum td_keycodes {
     TD_APP,
     TD_PASS,
     TD_LEADER,
-};
-
-enum custom_keycodes {
-    A_BSLS = SAFE_RANGE,
-    G_SLSH,
-    S_LCBR,
-    C_RCBR,
-    C_LPRN,
-    S_RPRN,
-    G_MINS,
-    A_COLN,
+    TD_SHIFT,
 };
 
 #define APP     TD(TD_APP)
-#define BSPC    LT(_SHIFT, KC_BSPC)
+#define A_COLN  LALT_T(KC_LANG1)
+#define A_BSLS  LALT_T(KC_LANG8)
+#define BSPC    LT(_NEO3, KC_BSPC)
 #define C_A     C(DE_A)
 #define C_C     C(DE_C)
 #define C_COMM  C(DE_COMM)
@@ -64,11 +57,15 @@ enum custom_keycodes {
 #define C_X     C(DE_X)
 #define C_Y     C(DE_Y)
 #define C_Z     C(DE_Z)
+#define C_LPRN  RCTL_T(KC_LANG4)
+#define C_RCBR  LCTL_T(KC_LANG5)
 #define COPY    TD(TD_COPY)
 #define DEL     LT(_NEO3, KC_DEL)
 #define ENTER   LT(_NUM, KC_ENT)
 #define ESC     LT(_NEO3, KC_ESC)
 #define ESCAPE  LT(_MOUSE, KC_ESC)
+#define G_MINS  RGUI_T(KC_LANG2)
+#define G_SLSH  LGUI_T(KC_LANG7)
 #define HOME_T  RCTL_T(DE_T)
 #define HOME_I  LCTL_T(DE_I)
 #define HOME_E  LSFT_T(DE_E)
@@ -88,9 +85,16 @@ enum custom_keycodes {
 #define PASTE   TD(TD_PASTE)
 #define SELECT  TD(TD_SELECT)
 #define S_ENTER TD(TD_SENTER)
+#define S_RPRN  RSFT_T(KC_LANG3)
+#define S_LCBR  LSFT_T(KC_LANG6)
+#define SHIFT   TD(TD_SHIFT)
 #define SPACE   LT(_NAV, KC_SPC)
-#define TAB     LT(_FKEYS, KC_TAB)
+#define TAB     LT(_MOUSE, KC_TAB)
 #define UNDO    TD(TD_UNDO)
+#define LEFT    TD(TD_LEFT)
+#define RIGHT   TD(TD_RIGHT)
+#define TDUP      TD(TD_UP)
+#define TDDOWN    TD(TD_DOWN)
 
 // Function to determine the current tapdance state
 uint8_t cur_dance(qk_tap_dance_state_t *state);

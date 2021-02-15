@@ -186,9 +186,42 @@ void nav_ctla_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void shift_finished(qk_tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case SINGLE_TAP:
+            set_oneshot_mods(MOD_LSFT);
+            //set_oneshot_mods(MOD_LSFT);
+            //layer_on(_SHIFT);
+            break;
+        case SINGLE_HOLD:
+            layer_on(_FKEYS);
+            break;
+        case DOUBLE_TAP:
+     //       tap_code16(KC_CAPS);
+            break;
+        default:
+            break;
+    }
+}
+
+void shift_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        case SINGLE_TAP:
+            unregister_mods(MOD_LSFT);
+            //set_oneshot_layer(_SHIFT, ONESHOT_START);
+            //clear_oneshot_layer_state(ONESHOT_PRESSED);
+            break;
+        case SINGLE_HOLD:
+            layer_off(_FKEYS);
+            break;
+        default:
+            break;
+    }
+}
+
 // Define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
 qk_tap_dance_action_t tap_dance_actions[] = {
-    //[CS_TAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, cstab_finished, cstab_reset),
     [TD_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_F12, G(KC_TAB)),
     [TD_SENTER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, senter_layer_finished, senter_layer_reset),
     [TD_COPY] = ACTION_TAP_DANCE_DOUBLE(C(DE_C), C(DE_X)),
@@ -200,113 +233,73 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_APP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, nav_app_finished, nav_app_reset),
     [TD_PASS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, nav_pass_finished, nav_pass_reset),
     [TD_LEADER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, leader_finished, leader_reset),
+    [TD_SHIFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_finished, shift_reset),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    static uint16_t bsls_timer;
-    static uint16_t slsh_timer;
-    static uint16_t lcbr_timer;
-    static uint16_t rcbr_timer;
-    static uint16_t coln_timer;
-    static uint16_t mins_timer;
-    static uint16_t lprn_timer;
-    static uint16_t rprn_timer;
-
     switch (keycode) {
         case A_BSLS:
-            if (record->event.pressed) {
-                bsls_timer = timer_read();
-                register_code(KC_LALT);
-            } else {
-                unregister_code(KC_LALT);
-                if (timer_elapsed(bsls_timer) < TAPPING_TERM) {
+            if (record->tap.count > 0) {
+                if (record->event.pressed) {
                     tap_code16(DE_BSLS);
                 }
+                return false;
             }
-            return false;
+            break;
         case G_SLSH:
-            if (record->event.pressed) {
-                slsh_timer = timer_read();
-                register_code(KC_LGUI);
-            } else {
-                unregister_code(KC_LGUI);
-                if (timer_elapsed(slsh_timer) < TAPPING_TERM) {
+            if (record->tap.count > 0) {
+                if (record->event.pressed) {
                     tap_code16(DE_SLSH);
                 }
+                return false;
             }
-            return false;
+            break;
         case S_LCBR:
-            if (record->event.pressed) {
-                lcbr_timer = timer_read();
-                register_code(KC_LSFT);
-            } else {
-                unregister_code(KC_LSFT);
-                if (timer_elapsed(lcbr_timer) < TAPPING_TERM) {
+            if (record->tap.count > 0) {
+                if (record->event.pressed) {
                     tap_code16(DE_LCBR);
                 }
+                return false;
             }
-            return false;
+            break;
         case C_RCBR:
-            if (record->event.pressed) {
-                rcbr_timer = timer_read();
-                register_code(KC_LCTL);
-            } else {
-                unregister_code(KC_LCTL);
-                if (timer_elapsed(rcbr_timer) < TAPPING_TERM) {
+            if (record->tap.count > 0) {
+                if (record->event.pressed) {
                     tap_code16(DE_RCBR);
                 }
+                return false;
             }
-            return false;
+            break;
         case A_COLN:
-            if (record->event.pressed) {
-                coln_timer = timer_read();
-                register_code(KC_LALT);
-            } else {
-                unregister_code(KC_LALT);
-                if (timer_elapsed(coln_timer) < TAPPING_TERM) {
+            if (record->tap.count > 0) {
+                if (record->event.pressed) {
                     tap_code16(DE_COLN);
                 }
+                return false;
             }
-            return false;
+            break;
         case G_MINS:
-            if (record->event.pressed) {
-                mins_timer = timer_read();
-                register_code(KC_RGUI);
-            } else {
-                unregister_code(KC_RGUI);
-                if (timer_elapsed(mins_timer) < TAPPING_TERM) {
+            if (record->tap.count > 0) {
+                if (record->event.pressed) {
                     tap_code16(DE_MINS);
                 }
+                return false;
             }
-            return false;
+            break;
         case S_RPRN:
-            if (record->event.pressed) {
-                rprn_timer = timer_read();
-                register_code(KC_RSFT);
-            } else {
-                unregister_code(KC_RSFT);
-                if (timer_elapsed(rprn_timer) < TAPPING_TERM) {
+            if (record->tap.count > 0) {
+                if (record->event.pressed) {
                     tap_code16(DE_RPRN);
                 }
+                return false;
             }
-            return false;
+            break;
         case C_LPRN:
-            if (record->event.pressed) {
-                lprn_timer = timer_read();
-                register_code(KC_RCTL);
-            } else {
-                unregister_code(KC_RCTL);
-                if (timer_elapsed(lprn_timer) < TAPPING_TERM) {
+            if (record->tap.count > 0) {
+                if (record->event.pressed) {
                     tap_code16(DE_LPRN);
                 }
-            }
-            return false;
-        case ENTER:
-            if (record->event.pressed) {
-                if (keyboard_report->mods & MOD_BIT(KC_LALT)) {
-                    SEND_STRING(SS_TAP(X_UP) SS_TAP(X_END) SS_TAP(X_ENT));
-                    return false;
-                }
+                return false;
             }
             break;
     }
@@ -323,6 +316,9 @@ void matrix_scan_user(void) {
             SEND_STRING(". ");
             set_oneshot_mods(MOD_LSFT);
         }
+        SEQ_ONE_KEY(DE_Q) {
+            SEND_STRING(SS_LGUI(SS_LSFT("q")));
+        }
         SEQ_ONE_KEY(KC_ENT) {
             SEND_STRING(SS_TAP(X_END) SS_TAP(X_ENT));
         }
@@ -337,11 +333,16 @@ void matrix_scan_user(void) {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case SHIFT:
+            return TAPPING_TERM - 25;
         case HOME_I:
         case HOME_E:
-            return TAPPING_TERM + 100;
-        case NA_SWIT:
-            return 200;
+        case HOME_S:
+        case SELECT:
+        case COPY:
+        case PASTE:
+        case UNDO:
+        case SPACE:
         case A_BSLS:
         case G_SLSH:
         case S_LCBR:
@@ -350,27 +351,42 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case S_RPRN:
         case G_MINS:
         case A_COLN:
-            return TAPPING_TERM - 100;
+            return TAPPING_TERM + 25;
         default:
             return TAPPING_TERM;
     }
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _NUM, _SHIFT, _FKEYS);
-}
+//layer_state_t layer_state_set_user(layer_state_t state) {
+//  return update_tri_layer_state(state, _NUM, _SHIFT, _FKEYS);
+//}
 
 enum combo_events {
     DOT_OSM,
     LEADER_COMBO,
+    COPY_COMBO,
+    PASTE_COMBO,
+    CTL_LEFT_COMBO,
+    CTL_RIGHT_COMBO,
+    CLOSE_WINDOW_COMBO,
 };
 
 const uint16_t PROGMEM dot_osm_combo[] = {DE_DOT, DE_O, COMBO_END};
 const uint16_t PROGMEM leader_combo[] = {DE_P, DE_UE, COMBO_END};
+const uint16_t PROGMEM copy_combo[] = {DE_Q, DE_AE, COMBO_END};
+const uint16_t PROGMEM paste_combo[] = {DE_UE, DE_AE, COMBO_END};
+const uint16_t PROGMEM ctl_left_combo[] = {KC_LEFT, KC_DOWN, COMBO_END};
+const uint16_t PROGMEM ctl_right_combo[] = {KC_RIGHT, KC_DOWN, COMBO_END};
+const uint16_t PROGMEM close_window[] = {DE_Q, DE_X, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     [DOT_OSM] = COMBO_ACTION(dot_osm_combo),
     [LEADER_COMBO] = COMBO_ACTION(leader_combo),
+    [COPY_COMBO] = COMBO_ACTION(copy_combo),
+    [PASTE_COMBO] = COMBO_ACTION(paste_combo),
+    [CTL_LEFT_COMBO] = COMBO_ACTION(ctl_left_combo),
+    [CTL_RIGHT_COMBO] = COMBO_ACTION(ctl_right_combo),
+    [CLOSE_WINDOW_COMBO] = COMBO_ACTION(close_window),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
@@ -384,6 +400,31 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case LEADER_COMBO:
       if (pressed) {
         qk_leader_start();
+      }
+      break;
+    case COPY_COMBO:
+      if (pressed) {
+          tap_code16(LCTL(KC_C));
+      }
+      break;
+    case PASTE_COMBO:
+      if (pressed) {
+          tap_code16(LCTL(KC_V));
+      }
+      break;
+    case CTL_LEFT_COMBO:
+      if (pressed) {
+          tap_code16(LCTL(KC_LEFT));
+      }
+      break;
+    case CTL_RIGHT_COMBO:
+      if (pressed) {
+          tap_code16(LCTL(KC_RIGHT));
+      }
+      break;
+    case CLOSE_WINDOW_COMBO:
+      if (pressed) {
+          tap_code16(LSFT(LGUI(DE_Q)));
       }
       break;
   }
