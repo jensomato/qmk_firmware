@@ -190,15 +190,14 @@ void shift_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_state = cur_dance(state);
     switch (td_state) {
         case SINGLE_TAP:
-            set_oneshot_mods(MOD_LSFT);
-            //set_oneshot_mods(MOD_LSFT);
-            //layer_on(_SHIFT);
+            if ((get_oneshot_mods () & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out ()) {
+                tap_code16(KC_CAPS);
+            } else {
+                set_oneshot_mods(MOD_LSFT);
+            }
             break;
         case SINGLE_HOLD:
             layer_on(_FKEYS);
-            break;
-        case DOUBLE_TAP:
-     //       tap_code16(KC_CAPS);
             break;
         default:
             break;
@@ -209,8 +208,6 @@ void shift_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (td_state) {
         case SINGLE_TAP:
             unregister_mods(MOD_LSFT);
-            //set_oneshot_layer(_SHIFT, ONESHOT_START);
-            //clear_oneshot_layer_state(ONESHOT_PRESSED);
             break;
         case SINGLE_HOLD:
             layer_off(_FKEYS);
