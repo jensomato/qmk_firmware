@@ -2,6 +2,20 @@
 #include "quantum.h"
 #include "jensomato.h"
 
+void send_with_gui(uint16_t keycode) {
+    register_code(KC_LGUI);
+    tap_code16(keycode);
+    unregister_code(KC_LGUI);
+}
+
+void send_with_shift_gui(uint16_t keycode) {
+    register_code(KC_LGUI);
+    register_code(KC_LSFT);
+    tap_code16(keycode);
+    unregister_code(KC_LSFT);
+    unregister_code(KC_LGUI);
+}
+
 // Create a global instance of the tapdance state type
 static td_state_t td_state;
 
@@ -22,34 +36,6 @@ uint8_t cur_dance(qk_tap_dance_state_t *state) {
         else return TRIPLE_HOLD;
     }
     else return 8; // Any number higher than the maximum state value you return above
-}
-
-void senter_layer_finished(qk_tap_dance_state_t *state, void *user_data) {
-    td_state = cur_dance(state);
-    switch (td_state) {
-        case SINGLE_TAP:
-            register_mods(MOD_BIT(KC_LSHIFT));
-            tap_code16(KC_ENT);
-            break;
-        case SINGLE_HOLD:
-            layer_on(_FKEYS);
-            break;
-        default:
-            break;
-    }
-}
-
-void senter_layer_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (td_state) {
-        case SINGLE_TAP:
-            unregister_mods(MOD_BIT(KC_LSHIFT));
-            break;
-        case SINGLE_HOLD:
-            layer_off(_FKEYS);
-            break;
-        default:
-            break;
-    }
 }
 
 void select_finished(qk_tap_dance_state_t *state, void *user_data) {
@@ -111,7 +97,7 @@ void leader_finished(qk_tap_dance_state_t *state, void *user_data) {
             qk_leader_start();
             break;
         case SINGLE_HOLD:
-            layer_on(_MOUSE);
+            layer_on(_FKEYS);
             break;
         default:
             break;
@@ -123,7 +109,7 @@ void leader_reset(qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP:
             break;
         case SINGLE_HOLD:
-            layer_off(_MOUSE);
+            layer_off(_FKEYS);
             break;
         default:
             break;
@@ -217,20 +203,164 @@ void shift_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void bspc_finished(qk_tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case SINGLE_TAP:
+            set_oneshot_layer(_FUNC, ONESHOT_START);
+            break;
+        case SINGLE_HOLD:
+            register_code(KC_BSPC);
+            break;
+        default:
+            break;
+    }
+}
+
+void bspc_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        case SINGLE_TAP:
+            clear_oneshot_layer_state(ONESHOT_PRESSED);
+            //clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+            break;
+        case SINGLE_HOLD:
+            unregister_code(KC_BSPC);
+            break;
+        default:
+            break;
+    }
+}
+
+void wm_finished(qk_tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case SINGLE_TAP:
+            switch (state->keycode) {
+                case TD(TD_WM1):
+                    send_with_gui(DE_1);
+                    break;
+                case TD(TD_WM2):
+                    send_with_gui(DE_2);
+                    break;
+                case TD(TD_WM3):
+                    send_with_gui(DE_3);
+                    break;
+                case TD(TD_WM4):
+                    send_with_gui(DE_4);
+                    break;
+                case TD(TD_WM5):
+                    send_with_gui(DE_5);
+                    break;
+                case TD(TD_WM6):
+                    send_with_gui(DE_6);
+                    break;
+                case TD(TD_WM7):
+                    send_with_gui(DE_7);
+                    break;
+                case TD(TD_WM8):
+                    send_with_gui(DE_8);
+                    break;
+                case TD(TD_WM9):
+                    send_with_gui(DE_9);
+                    break;
+                case TD(TD_WM_DOWN):
+                    send_with_gui(KC_DOWN);
+                    break;
+                case TD(TD_WM_UP):
+                    send_with_gui(KC_UP);
+                    break;
+                case TD(TD_WM_LEFT):
+                    send_with_gui(KC_LEFT);
+                    break;
+                case TD(TD_WM_RIGHT):
+                    send_with_gui(KC_RIGHT);
+                    break;
+            }
+            break;
+        case DOUBLE_TAP:
+            switch (state->keycode) {
+                case TD(TD_WM1):
+                    send_with_shift_gui(DE_1);
+                    break;
+                case TD(TD_WM2):
+                    send_with_shift_gui(DE_2);
+                    break;
+                case TD(TD_WM3):
+                    send_with_shift_gui(DE_3);
+                    break;
+                case TD(TD_WM4):
+                    send_with_shift_gui(DE_4);
+                    break;
+                case TD(TD_WM5):
+                    send_with_shift_gui(DE_5);
+                    break;
+                case TD(TD_WM6):
+                    send_with_shift_gui(DE_6);
+                    break;
+                case TD(TD_WM7):
+                    send_with_shift_gui(DE_7);
+                    break;
+                case TD(TD_WM8):
+                    send_with_shift_gui(DE_8);
+                    break;
+                case TD(TD_WM9):
+                    send_with_shift_gui(DE_9);
+                    break;
+                case TD(TD_WM_DOWN):
+                    send_with_shift_gui(KC_DOWN);
+                    break;
+                case TD(TD_WM_UP):
+                    send_with_shift_gui(KC_UP);
+                    break;
+                case TD(TD_WM_LEFT):
+                    send_with_shift_gui(KC_LEFT);
+                    break;
+                case TD(TD_WM_RIGHT):
+                    send_with_shift_gui(KC_RIGHT);
+                    break;
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+void wm_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        case SINGLE_TAP:
+            break;
+        case DOUBLE_TAP:
+            break;
+        default:
+            break;
+    }
+}
+
 // Define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_F12, G(KC_TAB)),
-    [TD_SENTER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, senter_layer_finished, senter_layer_reset),
     [TD_COPY] = ACTION_TAP_DANCE_DOUBLE(C(DE_C), C(DE_X)),
     [TD_PASTE] = ACTION_TAP_DANCE_DOUBLE(C(DE_V), C(S(DE_V))),
     [TD_UNDO] = ACTION_TAP_DANCE_DOUBLE(C(DE_Z), C(S(DE_Z))),
     [TD_SELECT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, select_finished, select_reset),
-    [TD_MOUSE] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_CAPS, _MOUSE),
     [TD_CTL_A] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, nav_ctla_finished, nav_ctla_reset),
     [TD_APP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, nav_app_finished, nav_app_reset),
     [TD_PASS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, nav_pass_finished, nav_pass_reset),
     [TD_LEADER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, leader_finished, leader_reset),
     [TD_SHIFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_finished, shift_reset),
+    [TD_WM1] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
+    [TD_WM2] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
+    [TD_WM3] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
+    [TD_WM4] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
+    [TD_WM5] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
+    [TD_WM6] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
+    [TD_WM7] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
+    [TD_WM8] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
+    [TD_WM9] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
+    [TD_WM_DOWN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
+    [TD_WM_UP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
+    [TD_WM_LEFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
+    [TD_WM_RIGHT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -328,20 +458,22 @@ void matrix_scan_user(void) {
     }
 }
 
+
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SHIFT:
+        case ESC:
+        case HOME_F:
+        case PASS:
+        case APP:
+        case A_BSLS:
+        case G_SLSH:
             return TAPPING_TERM - 25;
         case HOME_I:
         case HOME_E:
         case HOME_S:
-        case SELECT:
-        case COPY:
-        case PASTE:
         case UNDO:
         case SPACE:
-        case A_BSLS:
-        case G_SLSH:
         case S_LCBR:
         case C_RCBR:
         case C_LPRN:
@@ -349,6 +481,11 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case G_MINS:
         case A_COLN:
             return TAPPING_TERM + 25;
+        case SELECT:
+        case COPY:
+        case PASTE:
+        case NA_SWIT:
+            return TAPPING_TERM + 75;
         default:
             return TAPPING_TERM;
     }
