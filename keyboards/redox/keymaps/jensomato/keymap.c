@@ -15,7 +15,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      ESC     ,HOME_H  ,HOME_A  ,HOME_E  ,HOME_I  ,DE_U    ,XXXXXXX ,                          XXXXXXX ,DE_D    ,HOME_T  ,HOME_R  ,HOME_N  ,HOME_S  ,HOME_F  ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     OSL(_FUNC) ,DE_X    ,DE_Q    ,DE_AE   ,DE_UE   ,DE_OE   ,XXXXXXX ,XXXXXXX ,        XXXXXXX ,XXXXXXX ,DE_B    ,DE_P    ,DE_W    ,DE_M    ,DE_J    ,OSL(_WM) ,
+     OSL(_FUNC) ,DE_X    ,DE_Q    ,DE_AE   ,DE_UE   ,DE_OE   ,XXXXXXX ,CAPSWORD ,        XXXXXXX ,XXXXXXX ,DE_B    ,DE_P    ,DE_W    ,DE_M    ,DE_J    ,OSL(_WM) ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
      KC_LGUI ,KC_PPLS ,KC_PMNS ,KC_LGUI ,     SHIFT   ,    BSPC    ,LEADER  ,        TAB     ,SPACE   ,    ENTER   ,     KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RGHT
   //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
