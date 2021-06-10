@@ -28,6 +28,10 @@ typedef enum {
     TRIPLE_HOLD,
 } td_state_t;
 
+enum custom_keycodes {
+    CAPSWORD = SAFE_RANGE,
+};
+
 // Tap Dance keycodes
 enum td_keycodes {
     TD_TAB, // Our example key: `LALT` when held, `(` when tapped. Add additional keycodes for each tapdance.

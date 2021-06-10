@@ -1,6 +1,7 @@
 #include "action.h"
 #include "quantum.h"
 #include "jensomato.h"
+#include "casemodes.h"
 
 void send_with_gui(uint16_t keycode) {
     register_code(KC_LGUI);
@@ -177,7 +178,8 @@ void shift_finished(qk_tap_dance_state_t *state, void *user_data) {
     switch (td_state) {
         case SINGLE_TAP:
             if ((get_oneshot_mods () & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out ()) {
-                tap_code16(KC_CAPS);
+                enable_caps_word();
+                //tap_code16(KC_CAPS);
             } else {
                 set_oneshot_mods(MOD_LSFT);
             }
@@ -363,8 +365,41 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_WM_RIGHT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
 };
 
+bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
+        switch (keycode) {
+            // Keycodes to ignore (don't disable caps word)
+            case KC_A ... KC_Z:
+            case KC_1 ... KC_0:
+            case DE_MINS:
+            case DE_UNDS:
+            case KC_LANG2: // minus key with homerow mods
+            case KC_BSPC:
+                // If mod chording disable the mods
+                if (record->event.pressed && (get_mods() != 0)) {
+                    return true;
+                }
+                break;
+            default:
+                if (record->event.pressed) {
+                    return true;
+                }
+                break;
+        }
+        return false;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Process case modes
+    if (!process_case_modes(keycode, record)) {
+        return false;
+    }
+
     switch (keycode) {
+        case CAPSWORD:
+            if (record->event.pressed) {
+                enable_caps_word();
+            }
+            return false;
         case A_BSLS:
             if (record->tap.count > 0) {
                 if (record->event.pressed) {
