@@ -185,7 +185,7 @@ void shift_finished(qk_tap_dance_state_t *state, void *user_data) {
             }
             break;
         case SINGLE_HOLD:
-            layer_on(_FKEYS);
+            layer_on(_NUM);
             break;
         default:
             break;
@@ -198,35 +198,36 @@ void shift_reset(qk_tap_dance_state_t *state, void *user_data) {
             unregister_mods(MOD_LSFT);
             break;
         case SINGLE_HOLD:
-            layer_off(_FKEYS);
+            layer_off(_NUM);
             break;
         default:
+            layer_off(_NUM);
             break;
     }
 }
 
-void bspc_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dot_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_state = cur_dance(state);
     switch (td_state) {
         case SINGLE_TAP:
-            set_oneshot_layer(_FUNC, ONESHOT_START);
-            break;
-        case SINGLE_HOLD:
-            register_code(KC_BSPC);
+            if ((get_oneshot_mods () & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out ()) {
+                clear_oneshot_mods();
+                set_oneshot_layer(_NEO3, ONESHOT_START);
+            } else {
+                register_code(DE_DOT);
+            }
             break;
         default:
             break;
     }
 }
 
-void bspc_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dot_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (td_state) {
         case SINGLE_TAP:
             clear_oneshot_layer_state(ONESHOT_PRESSED);
+            unregister_code(DE_DOT);
             //clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-            break;
-        case SINGLE_HOLD:
-            unregister_code(KC_BSPC);
             break;
         default:
             break;
@@ -363,6 +364,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_WM_UP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
     [TD_WM_LEFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
     [TD_WM_RIGHT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
+    [TD_DOT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dot_finished, dot_reset),
 };
 
 bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
@@ -395,6 +397,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
+        case DE_DOT:
+            if (record->event.pressed) {
+                if ((get_oneshot_mods () & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out ()) {
+                    tap_code16(DE_I);
+                            qk_leader_start();
+
+                    set_oneshot_layer(_NEO3, ONESHOT_START);
+                    return false;
+                }
+            } else {
+                if ((get_oneshot_mods () & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out ()) {
+                    clear_oneshot_layer_state(ONESHOT_PRESSED);
+                    return false;
+                }
+                    clear_oneshot_layer_state(ONESHOT_PRESSED);
+            }
+            break;
         case CAPSWORD:
             if (record->event.pressed) {
                 enable_caps_word();
@@ -408,6 +427,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
+
         case G_SLSH:
             if (record->tap.count > 0) {
                 if (record->event.pressed) {
@@ -503,6 +523,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case APP:
         case A_BSLS:
         case G_SLSH:
+        case ENTER:
             return TAPPING_TERM - 25;
         case HOME_I:
         case HOME_E:
@@ -526,9 +547,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-//layer_state_t layer_state_set_user(layer_state_t state) {
-//  return update_tri_layer_state(state, _NUM, _SHIFT, _FKEYS);
-//}
+layer_state_t layer_state_set_user(layer_state_t state) {
+  return update_tri_layer_state(state, _NUM, _NEO3, _FKEYS);
+}
 
 enum combo_events {
     DOT_OSM,
