@@ -6,7 +6,7 @@
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 #define _______________________KOY_L1_______________________ XXXXXXX ,DE_K    ,DE_DOT  ,DE_O    ,DE_COMM ,DE_Y
 #define _______________________KOY_L2_______________________ ESC     ,HOME_H  ,HOME_A  ,HOME_E  ,HOME_I  ,DE_U
-#define _______________________KOY_L3_______________________ XXXXXXX ,DE_X    ,DE_Q    ,DE_AE   ,DE_UE   ,DE_OE
+#define _______________________KOY_L3_______________________ XXXXXXX ,DE_X    ,DE_Q    ,DE_ADIA ,DE_UDIA ,DE_ODIA
 #define _______________________KOY_R1_______________________ DE_V    ,DE_G    ,DE_C    ,DE_L    ,DE_Z    ,DE_SS
 #define _______________________KOY_R2_______________________ DE_D    ,HOME_T  ,HOME_R  ,HOME_N  ,HOME_S  ,HOME_F
 #define _______________________KOY_R3_______________________ DE_B    ,DE_P    ,DE_W    ,DE_M    ,DE_J    ,OSL(_WM)
