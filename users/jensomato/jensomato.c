@@ -562,9 +562,9 @@ enum combo_events {
 };
 
 const uint16_t PROGMEM dot_osm_combo[] = {DE_DOT, DE_O, COMBO_END};
-const uint16_t PROGMEM leader_combo[] = {DE_P, DE_UE, COMBO_END};
-const uint16_t PROGMEM copy_combo[] = {DE_Q, DE_AE, COMBO_END};
-const uint16_t PROGMEM paste_combo[] = {DE_UE, DE_AE, COMBO_END};
+const uint16_t PROGMEM leader_combo[] = {DE_P, DE_UDIA, COMBO_END};
+const uint16_t PROGMEM copy_combo[] = {DE_Q, DE_ADIA, COMBO_END};
+const uint16_t PROGMEM paste_combo[] = {DE_UDIA, DE_ADIA, COMBO_END};
 const uint16_t PROGMEM ctl_left_combo[] = {KC_LEFT, KC_DOWN, COMBO_END};
 const uint16_t PROGMEM ctl_right_combo[] = {KC_RIGHT, KC_DOWN, COMBO_END};
 const uint16_t PROGMEM close_window[] = {DE_Q, DE_X, COMBO_END};
