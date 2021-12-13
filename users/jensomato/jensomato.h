@@ -13,7 +13,7 @@
 #define ___________________KOY_L4___________________ XXXXXXX ,XXXXXXX ,SHIFT   ,BSPC    ,OSL(_NEO3)
 #define ___________________KOY_R4___________________ TAB     ,SPACE   ,ENTER   ,XXXXXXX ,XXXXXXX
 #define _______________________NUM_L1_______________________ _______ ,XXXXXXX ,_______ ,XXXXXXX ,_______ ,XXXXXXX
-#define _______________________NUM_L2_______________________ _______ ,KC_LALT ,KC_LGUI ,KC_LSFT ,KC_LCTL ,XXXXXXX
+#define _______________________NUM_L2_______________________ _______ ,OSM(MOD_LALT) ,OSM(MOD_LGUI) ,OSM(MOD_LSFT) ,OSM(MOD_LCTL) ,XXXXXXX
 #define _______________________NUM_L3_______________________ _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
 #define _______________________NUM_R1_______________________ XXXXXXX ,DE_7    ,DE_8    ,DE_9    ,DE_PLUS ,DE_MINS
 #define _______________________NUM_R2_______________________ DE_0    ,DE_4    ,DE_5    ,DE_6    ,DE_COLN ,_______
@@ -85,6 +85,7 @@ typedef enum {
 
 enum custom_keycodes {
     CAPSWORD = SAFE_RANGE,
+    SP_SHIFT,
 };
 
 // Tap Dance keycodes
@@ -94,7 +95,6 @@ enum td_keycodes {
     TD_PASTE,
     TD_UNDO,
     TD_SELECT,
-    TD_SHIFT,
     TD_WM,
     TD_WM1,
     TD_WM2,
@@ -188,7 +188,7 @@ enum td_keycodes {
 #define SELECT  TD(TD_SELECT)
 #define S_RPRN  RSFT_T(KC_LANG3)
 #define S_LCBR  LSFT_T(KC_LANG6)
-#define SHIFT   TD(TD_SHIFT)
+#define SHIFT   LT(_NUM, SP_SHIFT)
 #define SPACE   LT(_NAV, KC_SPC)
 #define TAB     LT(_WM, KC_TAB)
 #define UNDO    TD(TD_UNDO)
