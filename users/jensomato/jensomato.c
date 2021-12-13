@@ -63,37 +63,6 @@ void select_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void shift_finished(qk_tap_dance_state_t *state, void *user_data) {
-    td_state = cur_dance(state);
-    switch (td_state) {
-        case SINGLE_TAP:
-            if ((get_oneshot_mods() & MODS_SHIFT_MASK) && !has_oneshot_mods_timed_out()) {
-                enable_caps_word();
-            } else {
-                set_oneshot_mods(MOD_LSFT);
-            }
-            break;
-        case SINGLE_HOLD:
-            layer_on(_NUM);
-            break;
-        default:
-            break;
-    }
-}
-
-void shift_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (td_state) {
-        case SINGLE_TAP:
-            unregister_mods(MOD_LSFT);
-            break;
-        case SINGLE_HOLD:
-            layer_off(_NUM);
-            break;
-        default:
-            break;
-    }
-}
-
 void nav_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_state = cur_dance(state);
     switch (td_state) {
@@ -351,7 +320,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_PASTE] = ACTION_TAP_DANCE_DOUBLE(C(DE_V), C(S(DE_V))),
     [TD_UNDO] = ACTION_TAP_DANCE_DOUBLE(C(DE_Z), C(S(DE_Z))),
     [TD_SELECT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, select_finished, select_reset),
-    [TD_SHIFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_finished, shift_reset),
     [TD_WM1] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
     [TD_WM2] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
     [TD_WM3] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
@@ -396,11 +364,34 @@ bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    bool isOneShotShift = get_oneshot_mods() & MOD_MASK_SHIFT || get_oneshot_locked_mods() & MOD_MASK_SHIFT;
+    //bool isOneShotCtrl = get_oneshot_mods() & MOD_MASK_CTRL || get_oneshot_locked_mods() & MOD_MASK_CTRL;
+    //bool isOneShotAlt = get_oneshot_mods() & MOD_MASK_ALT || get_oneshot_locked_mods() & MOD_MASK_ALT;
+    //bool isOneShotGui = get_oneshot_mods() & MOD_MASK_GUI || get_oneshot_locked_mods() & MOD_MASK_GUI;
+    //bool isAnyOneShot = isOneShotShift || isOneShotCtrl || isOneShotAlt || isOneShotGui;
     // Process case modes
     if (!process_case_modes(keycode, record)) {
         return false;
     }
     switch (keycode) {
+        case SHIFT:
+            if (record->tap.count > 0) {
+                if (record->event.pressed) {
+                    if (caps_word_enabled()) {
+                        disable_caps_word();
+                    } else {
+                        if (!isOneShotShift) {
+                            add_oneshot_mods(MOD_BIT(KC_LSFT));
+                        } else {
+                            del_oneshot_mods(MOD_BIT(KC_LSFT));
+                            unregister_mods(MOD_BIT(KC_LSFT));
+                            enable_caps_word();
+                        }
+                    }
+                }
+                return false;
+            }
+            break;
         case CAPSWORD:
             if (record->event.pressed) {
                 enable_caps_word();
