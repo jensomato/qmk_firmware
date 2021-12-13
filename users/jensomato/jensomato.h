@@ -15,7 +15,7 @@
 #define _______________________NUM_L1_______________________ _______ ,XXXXXXX ,_______ ,XXXXXXX ,_______ ,XXXXXXX
 #define _______________________NUM_L2_______________________ _______ ,KC_LALT ,KC_LGUI ,KC_LSFT ,KC_LCTL ,XXXXXXX
 #define _______________________NUM_L3_______________________ _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
-#define _______________________NUM_R1_______________________ DE_0    ,DE_7    ,DE_8    ,DE_9    ,DE_PLUS ,DE_MINS
+#define _______________________NUM_R1_______________________ XXXXXXX ,DE_7    ,DE_8    ,DE_9    ,DE_PLUS ,DE_MINS
 #define _______________________NUM_R2_______________________ DE_0    ,DE_4    ,DE_5    ,DE_6    ,DE_COLN ,_______
 #define _______________________NUM_R3_______________________ DE_0    ,DE_1    ,DE_2    ,DE_3    ,DE_ASTR ,_______
 #define ___________________NUM_L4___________________ XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______
@@ -25,16 +25,16 @@
 #define _______________________NEO3_L3______________________ _______ ,DE_HASH ,DE_DLR  ,DE_PIPE ,DE_TILD ,DE_GRV
 #define _______________________NEO3_R1______________________ DE_EXLM ,DE_LABK ,DE_RABK ,DE_EQL  ,DE_AMPR ,XXXXXXX
 #define _______________________NEO3_R2______________________ DE_QUES ,C_LPRN  ,S_RPRN  ,G_MINS  ,A_COLN  ,_______
-#define _______________________NEO3_R3______________________ DE_PLUS ,DE_PERC ,DE_DQUO ,DE_QUOT ,DE_SCLN ,_______
+#define _______________________NEO3_R3______________________ DE_PLUS ,DE_PERC ,DQUO    ,QUOT    ,DE_SCLN ,_______
 #define ___________________NEO3_L4__________________ XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______
 #define ___________________NEO3_R4__________________ _______ ,_______ ,_______ ,XXXXXXX ,XXXXXXX
 #define _______________________NAV_L1_______________________ _______ ,C_W     ,XXXXXXX ,XXXXXXX ,_______ ,C_Y
-#define _______________________NAV_L2_______________________ _______ ,KC_LALT ,NA_TMUX ,KC_LSFT ,KC_LCTL ,_______
+#define _______________________NAV_L2_______________________ _______ ,KC_LALT ,KC_LGUI ,KC_LSFT ,OSM(MOD_LCTL) ,_______
 #define _______________________NAV_L3_______________________ _______ ,C_A     ,C_X     ,C_C     ,_______ ,C_F
 #define _______________________NAV_R1_______________________ KC_PGUP ,KC_HOME ,KC_UP   ,KC_END  ,KC_INS  ,XXXXXXX
 #define _______________________NAV_R2_______________________ KC_PGDN ,KC_LEFT ,KC_DOWN ,KC_RGHT ,KC_DEL  ,MOUSE
-#define _______________________NAV_R3_______________________ SELECT  ,KC_ENT  ,UNDO    ,PASTE   ,XXXXXXX ,_______
-#define ___________________NAV_L4___________________ XXXXXXX ,XXXXXXX ,KC_LSFT ,KC_BSPC ,PASS
+#define _______________________NAV_R3_______________________ SELECT  ,LEFT    ,UNDO    ,RIGHT   ,XXXXXXX ,_______
+#define ___________________NAV_L4___________________ XXXXXXX ,XXXXXXX ,KC_LSFT ,KC_BSPC ,C_S_T(KC_F12)
 #define ___________________NAV_R4___________________ _______ ,_______ ,NA_SWIT ,XXXXXXX ,XXXXXXX
 #define _______________________FKEYS_L1_____________________ _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
 #define _______________________FKEYS_L2_____________________ _______ ,KC_LALT ,KC_LGUI ,KC_LSFT ,KC_LCTL ,XXXXXXX
@@ -44,6 +44,15 @@
 #define _______________________FKEYS_R3_____________________ XXXXXXX ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F12  ,XXXXXXX
 #define ___________________FKEYS_L4_________________ XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______
 #define ___________________FKEYS_R4_________________ _______ ,_______ ,_______ ,XXXXXXX ,XXXXXXX
+
+#define _______________________WM_L1________________________ _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
+#define _______________________WM_L2________________________ _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
+#define _______________________WM_L3________________________ _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
+#define _______________________WM_R1________________________ XXXXXXX ,WM_7    ,WM_8    ,WM_9    ,XXXXXXX ,XXXXXXX
+#define _______________________WM_R2________________________ XXXXXXX ,WM_4    ,WM_5    ,WM_6    ,XXXXXXX ,XXXXXXX
+#define _______________________WM_R3________________________ XXXXXXX ,WM_1    ,WM_2    ,WM_3    ,XXXXXXX ,XXXXXXX
+#define ___________________WM_L4____________________ XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______
+#define ___________________WM_R4____________________ _______ ,_______ ,_______ ,XXXXXXX ,XXXXXXX
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -58,6 +67,11 @@
 #define _FKEYS 7
 #define _ADJUST 8
 #define _WM 9
+
+#define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
+#define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
+#define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
+#define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 // Define a type containing as many tapdance states as you need
 typedef enum {
     SINGLE_TAP = 1,
@@ -80,10 +94,6 @@ enum td_keycodes {
     TD_PASTE,
     TD_UNDO,
     TD_SELECT,
-    TD_CTL_A,
-    TD_APP,
-    TD_PASS,
-    TD_LEADER,
     TD_SHIFT,
     TD_WM,
     TD_WM1,
@@ -99,13 +109,16 @@ enum td_keycodes {
     TD_WM_UP,
     TD_WM_LEFT,
     TD_WM_RIGHT,
-    TD_DOT,
+    TD_LEFT,
+    TD_RIGHT,
+    TD_DQUO,
+    TD_QUOT,
+    TD_NAV,
 };
 
-#define APP     TD(TD_APP)
 #define A_COLN  LALT_T(KC_LANG1)
 #define A_BSLS  LALT_T(KC_LANG8)
-#define BSPC    LT(_NEO3, KC_BSPC)
+#define BSPC    LT(_FKEYS, KC_BSPC)
 #define C_A     C(DE_A)
 #define C_C     C(DE_C)
 #define C_COMM  C(DE_COMM)
@@ -118,7 +131,6 @@ enum td_keycodes {
 #define C_LPRN  RCTL_T(KC_LANG4)
 #define C_RCBR  LCTL_T(KC_LANG5)
 #define COPY    TD(TD_COPY)
-#define DOT     TD(TD_DOT)
 #define ENTER   LT(_NEO3, KC_ENT)
 //#define ESC     LT(_NEO3, KC_ESC)
 #define ESC     KC_ESC
@@ -169,12 +181,9 @@ enum td_keycodes {
 #define HOME_N  RGUI_T(DE_N)
 #define HOME_H  LALT_T(DE_H)
 #define HOME_S  LALT_T(DE_S)
-#define LEADER  TD(TD_LEADER)
-#define MOUSE   LT(_MOUSE, KC_F12)
+#define MOUSE   TD(TD_NAV)
 #define NA_BSPC LSFT_T(KC_BSPC)
-#define NA_TMUX TD(TD_CTL_A)
 #define NA_SWIT TD(TD_TAB)
-#define PASS    TD(TD_PASS)
 #define PASTE   TD(TD_PASTE)
 #define SELECT  TD(TD_SELECT)
 #define S_RPRN  RSFT_T(KC_LANG3)
@@ -185,6 +194,8 @@ enum td_keycodes {
 #define UNDO    TD(TD_UNDO)
 #define TDUP      TD(TD_UP)
 #define TDDOWN    TD(TD_DOWN)
+#define LEFT    TD(TD_LEFT)
+#define RIGHT   TD(TD_RIGHT)
 #define WM_1    TD(TD_WM1)
 #define WM_2    TD(TD_WM2)
 #define WM_3    TD(TD_WM3)
@@ -198,6 +209,8 @@ enum td_keycodes {
 #define WM_LEFT TD(TD_WM_LEFT)
 #define WM_RGHT TD(TD_WM_RIGHT)
 #define WM_UP   TD(TD_WM_UP)
+#define QUOT    TD(TD_QUOT)
+#define DQUO    TD(TD_DQUO)
 
 //#define LAYOUT_wrapper(...)        LAYOUT_split_3x6_5(__VA_ARGS__)
 // Function to determine the current tapdance state

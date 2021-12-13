@@ -63,123 +63,12 @@ void select_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void nav_app_finished(qk_tap_dance_state_t *state, void *user_data) {
-    td_state = cur_dance(state);
-    switch (td_state) {
-        case SINGLE_TAP:
-            register_mods(MOD_BIT(KC_LGUI));
-            tap_code16(DE_D);
-            break;
-        case SINGLE_HOLD:
-            register_mods(MOD_BIT(KC_LGUI));
-            break;
-        default:
-            break;
-    }
-}
-
-void nav_app_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (td_state) {
-        case SINGLE_TAP:
-            unregister_mods(MOD_BIT(KC_LGUI));
-            break;
-        case SINGLE_HOLD:
-            unregister_mods(MOD_BIT(KC_LGUI));
-            break;
-        default:
-            break;
-    }
-}
-
-void leader_finished(qk_tap_dance_state_t *state, void *user_data) {
-    td_state = cur_dance(state);
-    switch (td_state) {
-        case SINGLE_TAP:
-            qk_leader_start();
-            break;
-        case SINGLE_HOLD:
-            layer_on(_FKEYS);
-            break;
-        default:
-            break;
-    }
-}
-
-void leader_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (td_state) {
-        case SINGLE_TAP:
-            break;
-        case SINGLE_HOLD:
-            layer_off(_FKEYS);
-            break;
-        default:
-            break;
-    }
-}
-
-void nav_pass_finished(qk_tap_dance_state_t *state, void *user_data) {
-    td_state = cur_dance(state);
-    switch (td_state) {
-        case SINGLE_TAP:
-            register_mods(MOD_BIT(KC_LGUI));
-            tap_code16(DE_P);
-            break;
-        case SINGLE_HOLD:
-            register_mods(MOD_LSFT | MOD_LCTL);
-            break;
-        default:
-            break;
-    }
-}
-
-void nav_pass_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (td_state) {
-        case SINGLE_TAP:
-            unregister_mods(MOD_BIT(KC_LGUI));
-            break;
-        case SINGLE_HOLD:
-            unregister_mods(MOD_LSFT | MOD_LCTL);
-            break;
-        default:
-            break;
-    }
-}
-
-void nav_ctla_finished(qk_tap_dance_state_t *state, void *user_data) {
-    td_state = cur_dance(state);
-    switch (td_state) {
-        case SINGLE_TAP:
-            register_mods(MOD_BIT(KC_LCTRL));
-            tap_code16(DE_A);
-            break;
-        case SINGLE_HOLD:
-            register_mods(MOD_BIT(KC_LGUI));
-            break;
-        default:
-            break;
-    }
-}
-
-void nav_ctla_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (td_state) {
-        case SINGLE_TAP:
-            unregister_mods(MOD_BIT(KC_LCTRL));
-            break;
-        case SINGLE_HOLD:
-            unregister_mods(MOD_BIT(KC_LGUI));
-            break;
-        default:
-            break;
-    }
-}
-
 void shift_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_state = cur_dance(state);
     switch (td_state) {
         case SINGLE_TAP:
-            if ((get_oneshot_mods () & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out ()) {
+            if ((get_oneshot_mods() & MODS_SHIFT_MASK) && !has_oneshot_mods_timed_out()) {
                 enable_caps_word();
-                //tap_code16(KC_CAPS);
             } else {
                 set_oneshot_mods(MOD_LSFT);
             }
@@ -201,20 +90,60 @@ void shift_reset(qk_tap_dance_state_t *state, void *user_data) {
             layer_off(_NUM);
             break;
         default:
-            layer_off(_NUM);
             break;
     }
 }
 
-void dot_finished(qk_tap_dance_state_t *state, void *user_data) {
+void nav_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_state = cur_dance(state);
     switch (td_state) {
         case SINGLE_TAP:
-            if ((get_oneshot_mods () & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out ()) {
-                clear_oneshot_mods();
-                set_oneshot_layer(_NEO3, ONESHOT_START);
-            } else {
-                register_code(DE_DOT);
+            break;
+        case SINGLE_HOLD:
+            register_mods(MOD_LSFT);
+            break;
+        default:
+            break;
+    }
+}
+
+void nav_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        case SINGLE_TAP:
+            break;
+        case SINGLE_HOLD:
+            unregister_mods(MOD_LSFT);
+            break;
+        default:
+            break;
+    }
+}
+
+void double_finished(qk_tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case SINGLE_TAP:
+            switch (state->keycode) {
+                case DQUO:
+                    tap_code16(DE_DQUO);
+                    break;
+                case QUOT:
+                    tap_code16(DE_QUOT);
+                    break;
+            }
+            break;
+        case DOUBLE_TAP:
+            switch (state->keycode) {
+                case DQUO:
+                    tap_code16(DE_DQUO);
+                    tap_code16(DE_DQUO);
+                    tap_code16(KC_LEFT);
+                    break;
+                case QUOT:
+                    tap_code16(DE_QUOT);
+                    tap_code16(DE_QUOT);
+                    tap_code16(KC_LEFT);
+                    break;
             }
             break;
         default:
@@ -222,12 +151,72 @@ void dot_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dot_reset(qk_tap_dance_state_t *state, void *user_data) {
+void double_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        default:
+            break;
+    }
+}
+
+void cursor_finished(qk_tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
     switch (td_state) {
         case SINGLE_TAP:
-            clear_oneshot_layer_state(ONESHOT_PRESSED);
-            unregister_code(DE_DOT);
-            //clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+            switch (state->keycode) {
+                case LEFT:
+                    register_mods(MOD_LCTL);
+                    register_code(KC_LEFT);
+                    break;
+                case RIGHT:
+                    register_mods(MOD_LCTL);
+                    register_code(KC_RIGHT);
+                    break;
+            }
+            break;
+        case SINGLE_HOLD:
+        case DOUBLE_TAP:
+            switch (state->keycode) {
+                case LEFT:
+                    register_mods(MOD_LCTL|MOD_LSFT);
+                    register_code(KC_LEFT);
+                    break;
+                case RIGHT:
+                    register_mods(MOD_LCTL|MOD_LSFT);
+                    register_code(KC_RIGHT);
+                    break;
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+void cursor_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        case SINGLE_TAP:
+            switch (state->keycode) {
+                case LEFT:
+                    unregister_code(KC_LEFT);
+                    unregister_mods(MOD_LCTL);
+                    break;
+                case RIGHT:
+                    unregister_code(KC_RIGHT);
+                    unregister_mods(MOD_LCTL);
+                    break;
+            }
+            break;
+        case SINGLE_HOLD:
+        case DOUBLE_TAP:
+            switch (state->keycode) {
+                case LEFT:
+                    unregister_code(KC_LEFT);
+                    unregister_mods(MOD_LCTL|MOD_LSFT);
+                    break;
+                case RIGHT:
+                    unregister_code(KC_RIGHT);
+                    unregister_mods(MOD_LCTL|MOD_LSFT);
+                    break;
+            }
             break;
         default:
             break;
@@ -281,6 +270,22 @@ void wm_finished(qk_tap_dance_state_t *state, void *user_data) {
             }
             break;
         case DOUBLE_TAP:
+            switch (state->keycode) {
+                case TD(TD_WM4):
+                    send_with_gui(KC_LEFT);
+                    break;
+                case TD(TD_WM5):
+                    send_with_gui(KC_DOWN);
+                    break;
+                case TD(TD_WM6):
+                    send_with_gui(KC_RIGHT);
+                    break;
+                case TD(TD_WM8):
+                    send_with_gui(KC_UP);
+                    break;
+            }
+            break;
+        case SINGLE_HOLD:
             switch (state->keycode) {
                 case TD(TD_WM1):
                     send_with_shift_gui(DE_1);
@@ -346,10 +351,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_PASTE] = ACTION_TAP_DANCE_DOUBLE(C(DE_V), C(S(DE_V))),
     [TD_UNDO] = ACTION_TAP_DANCE_DOUBLE(C(DE_Z), C(S(DE_Z))),
     [TD_SELECT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, select_finished, select_reset),
-    [TD_CTL_A] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, nav_ctla_finished, nav_ctla_reset),
-    [TD_APP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, nav_app_finished, nav_app_reset),
-    [TD_PASS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, nav_pass_finished, nav_pass_reset),
-    [TD_LEADER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, leader_finished, leader_reset),
     [TD_SHIFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_finished, shift_reset),
     [TD_WM1] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
     [TD_WM2] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
@@ -364,7 +365,11 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_WM_UP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
     [TD_WM_LEFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
     [TD_WM_RIGHT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, wm_finished, wm_reset),
-    [TD_DOT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dot_finished, dot_reset),
+    [TD_LEFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, cursor_finished, cursor_reset),
+    [TD_RIGHT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, cursor_finished, cursor_reset),
+    [TD_QUOT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, double_finished, double_reset),
+    [TD_DQUO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, double_finished, double_reset),
+    [TD_NAV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, nav_finished, nav_reset),
 };
 
 bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
@@ -395,25 +400,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_case_modes(keycode, record)) {
         return false;
     }
-
     switch (keycode) {
-        case DE_DOT:
-            if (record->event.pressed) {
-                if ((get_oneshot_mods () & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out ()) {
-                    tap_code16(DE_I);
-                            qk_leader_start();
-
-                    set_oneshot_layer(_NEO3, ONESHOT_START);
-                    return false;
-                }
-            } else {
-                if ((get_oneshot_mods () & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out ()) {
-                    clear_oneshot_layer_state(ONESHOT_PRESSED);
-                    return false;
-                }
-                    clear_oneshot_layer_state(ONESHOT_PRESSED);
-            }
-            break;
         case CAPSWORD:
             if (record->event.pressed) {
                 enable_caps_word();
@@ -484,47 +471,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
+        case DE_COMM:
+            if (record->event.pressed && (get_oneshot_mods() & MODS_SHIFT_MASK)) {
+                SEND_STRING("Hallo wie gehts");
+                return false;
+            }
+            break;
     }
     return true;
 };
-
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-        SEQ_ONE_KEY(DE_DOT) {
-            SEND_STRING(". ");
-            set_oneshot_mods(MOD_LSFT);
-        }
-        SEQ_ONE_KEY(DE_Q) {
-            SEND_STRING(SS_LGUI(SS_LSFT("q")));
-        }
-        SEQ_ONE_KEY(KC_ENT) {
-            SEND_STRING(SS_TAP(X_END) SS_TAP(X_ENT));
-        }
-        SEQ_TWO_KEYS(KC_ENT, KC_ENT) {
-            SEND_STRING(SS_TAP(X_UP) SS_TAP(X_END) SS_TAP(X_ENT));
-        }
-        SEQ_TWO_KEYS(DE_D, DE_D) {
-            SEND_STRING(SS_TAP(X_END) SS_DOWN(X_LSFT) SS_TAP(X_HOME) SS_UP(X_LSFT) SS_TAP(X_BSPC));
-        }
-    }
-}
-
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SHIFT:
         case ESC:
         case HOME_F:
-        case PASS:
-        case APP:
         case A_BSLS:
         case G_SLSH:
         case ENTER:
-            return TAPPING_TERM - 25;
+            return TAPPING_TERM - 35;
         case HOME_I:
         case HOME_E:
         case HOME_S:
@@ -536,6 +501,15 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case S_RPRN:
         case G_MINS:
         case A_COLN:
+        case WM_1:
+        case WM_2:
+        case WM_3:
+        case WM_4:
+        case WM_5:
+        case WM_6:
+        case WM_7:
+        case WM_8:
+        case WM_9:
             return TAPPING_TERM + 25;
         case SELECT:
         case COPY:
@@ -547,51 +521,28 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _NUM, _NEO3, _FKEYS);
-}
+//layer_state_t layer_state_set_user(layer_state_t state) {
+//  return update_tri_layer_state(state, _NUM, _NEO3, _FKEYS);
+//}
 
 enum combo_events {
-    DOT_OSM,
-    LEADER_COMBO,
     COPY_COMBO,
     PASTE_COMBO,
-    CTL_LEFT_COMBO,
-    CTL_RIGHT_COMBO,
     CLOSE_WINDOW_COMBO,
 };
 
-const uint16_t PROGMEM dot_osm_combo[] = {DE_DOT, DE_O, COMBO_END};
-const uint16_t PROGMEM leader_combo[] = {DE_P, DE_UDIA, COMBO_END};
 const uint16_t PROGMEM copy_combo[] = {DE_Q, DE_ADIA, COMBO_END};
 const uint16_t PROGMEM paste_combo[] = {DE_UDIA, DE_ADIA, COMBO_END};
-const uint16_t PROGMEM ctl_left_combo[] = {KC_LEFT, KC_DOWN, COMBO_END};
-const uint16_t PROGMEM ctl_right_combo[] = {KC_RIGHT, KC_DOWN, COMBO_END};
 const uint16_t PROGMEM close_window[] = {DE_Q, DE_X, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-    [DOT_OSM] = COMBO_ACTION(dot_osm_combo),
-    [LEADER_COMBO] = COMBO_ACTION(leader_combo),
     [COPY_COMBO] = COMBO_ACTION(copy_combo),
     [PASTE_COMBO] = COMBO_ACTION(paste_combo),
-    [CTL_LEFT_COMBO] = COMBO_ACTION(ctl_left_combo),
-    [CTL_RIGHT_COMBO] = COMBO_ACTION(ctl_right_combo),
     [CLOSE_WINDOW_COMBO] = COMBO_ACTION(close_window),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
-    case DOT_OSM:
-      if (pressed) {
-        SEND_STRING(". ");
-        set_oneshot_mods(MOD_LSFT);
-      }
-      break;
-    case LEADER_COMBO:
-      if (pressed) {
-        qk_leader_start();
-      }
-      break;
     case COPY_COMBO:
       if (pressed) {
           tap_code16(LCTL(KC_C));
@@ -600,16 +551,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case PASTE_COMBO:
       if (pressed) {
           tap_code16(LCTL(KC_V));
-      }
-      break;
-    case CTL_LEFT_COMBO:
-      if (pressed) {
-          tap_code16(LCTL(KC_LEFT));
-      }
-      break;
-    case CTL_RIGHT_COMBO:
-      if (pressed) {
-          tap_code16(LCTL(KC_RIGHT));
       }
       break;
     case CLOSE_WINDOW_COMBO:
