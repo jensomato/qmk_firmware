@@ -462,12 +462,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
-        case DE_COMM:
-            if (record->event.pressed && (get_oneshot_mods() & MODS_SHIFT_MASK)) {
-                SEND_STRING("Hallo wie gehts");
-                return false;
-            }
-            break;
     }
     return true;
 };
@@ -551,3 +545,13 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
       break;
   }
 }
+
+const key_override_t dot_key_override = ko_make_basic(MOD_MASK_SHIFT, DE_DOT, DE_QUOT);
+const key_override_t comma_key_override = ko_make_basic(MOD_MASK_SHIFT, DE_COMM, DE_DQUO);
+
+// This globally defines all key overrides to be used
+const key_override_t **key_overrides = (const key_override_t *[]){
+    &dot_key_override,
+    &comma_key_override,
+    NULL // Null terminate the array of overrides!
+};
