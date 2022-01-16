@@ -506,6 +506,17 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case SHIFT:
+            // Immediately select the hold action when another key is pressed.
+            return true;
+        default:
+            // Do not select the hold action when another key is pressed.
+            return false;
+    }
+}
+
 //layer_state_t layer_state_set_user(layer_state_t state) {
 //  return update_tri_layer_state(state, _NUM, _NEO3, _FKEYS);
 //}
@@ -514,44 +525,44 @@ enum combo_events {
     COPY_COMBO,
     PASTE_COMBO,
     CLOSE_WINDOW_COMBO,
+    AE_COMBO,
+    UE_COMBO,
+    OE_COMBO,
+    COMBO_LENGTH
 };
+uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
 
 const uint16_t PROGMEM copy_combo[] = {DE_Q, DE_ADIA, COMBO_END};
 const uint16_t PROGMEM paste_combo[] = {DE_UDIA, DE_ADIA, COMBO_END};
 const uint16_t PROGMEM close_window[] = {DE_Q, DE_X, COMBO_END};
+const uint16_t PROGMEM ae_combo[] = {HOME_A, SPACE, COMBO_END};
+//const uint16_t PROGMEM ae_combo[] = {DE_COLN, SPACE, COMBO_END};
+const uint16_t PROGMEM ue_combo[] = {DE_U, SPACE, COMBO_END};
+//const uint16_t PROGMEM ue_combo[] = {DE_QUOT, SPACE, COMBO_END};
+const uint16_t PROGMEM oe_combo[] = {DE_O, SPACE, COMBO_END};
+//const uint16_t PROGMEM oe_combo[] = {DE_SLSH, SPACE, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
-    [COPY_COMBO] = COMBO_ACTION(copy_combo),
-    [PASTE_COMBO] = COMBO_ACTION(paste_combo),
-    [CLOSE_WINDOW_COMBO] = COMBO_ACTION(close_window),
+combo_t key_combos[] = {
+    [COPY_COMBO] = COMBO(copy_combo, LCTL(KC_C)),
+    [PASTE_COMBO] = COMBO(paste_combo, LCTL(KC_V)),
+    [CLOSE_WINDOW_COMBO] = COMBO(close_window, LSFT(LGUI(DE_Q))),
+    [AE_COMBO] = COMBO(ae_combo, DE_ADIA),
+    [UE_COMBO] = COMBO(ue_combo, DE_UDIA),
+    [OE_COMBO] = COMBO(oe_combo, DE_ODIA),
 };
 
-void process_combo_event(uint16_t combo_index, bool pressed) {
-  switch(combo_index) {
-    case COPY_COMBO:
-      if (pressed) {
-          tap_code16(LCTL(KC_C));
-      }
-      break;
-    case PASTE_COMBO:
-      if (pressed) {
-          tap_code16(LCTL(KC_V));
-      }
-      break;
-    case CLOSE_WINDOW_COMBO:
-      if (pressed) {
-          tap_code16(LSFT(LGUI(DE_Q)));
-      }
-      break;
-  }
-}
-
-const key_override_t dot_key_override = ko_make_basic(MOD_MASK_SHIFT, DE_DOT, DE_QUOT);
-const key_override_t comma_key_override = ko_make_basic(MOD_MASK_SHIFT, DE_COMM, DE_DQUO);
+const key_override_t dot_key_override = ko_make_basic(MOD_MASK_SHIFT, DE_DOT, DE_EXLM);
+const key_override_t comma_key_override = ko_make_basic(MOD_MASK_SHIFT, DE_COMM, DE_QUES);
+const key_override_t dquot_key_override = ko_make_basic(MOD_MASK_SHIFT, DE_DQUO, DE_QUOT);
+const key_override_t colon_key_override = ko_make_basic(MOD_MASK_SHIFT, DE_COLN, DE_SCLN);
+const key_override_t slash_key_override = ko_make_basic(MOD_MASK_SHIFT, DE_SLSH, DE_BSLS);
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
     &dot_key_override,
     &comma_key_override,
+    &dquot_key_override,
+    &colon_key_override,
+    &slash_key_override,
     NULL // Null terminate the array of overrides!
 };

@@ -6,17 +6,18 @@
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 #define _______________________KOY_L1_______________________ XXXXXXX ,DE_K    ,DE_DOT  ,DE_O    ,DE_COMM ,DE_Y
 #define _______________________KOY_L2_______________________ ESC     ,HOME_H  ,HOME_A  ,HOME_E  ,HOME_I  ,DE_U
-#define _______________________KOY_L3_______________________ XXXXXXX ,DE_X    ,DE_Q    ,DE_ADIA ,DE_UDIA ,DE_ODIA
+//#define _______________________KOY_L3_______________________ XXXXXXX ,DE_X    ,DE_Q    ,DE_ADIA ,DE_UDIA ,DE_ODIA
+#define _______________________KOY_L3_______________________ XXXXXXX ,DE_X    ,DE_Q    ,OSL(_UMLAUT) ,DE_DQUO ,DE_SLSH
 #define _______________________KOY_R1_______________________ DE_V    ,DE_G    ,DE_C    ,DE_L    ,DE_Z    ,DE_SS
 #define _______________________KOY_R2_______________________ DE_D    ,HOME_T  ,HOME_R  ,HOME_N  ,HOME_S  ,HOME_F
 #define _______________________KOY_R3_______________________ DE_B    ,DE_P    ,DE_W    ,DE_M    ,DE_J    ,OSL(_WM)
 #define ___________________KOY_L4___________________ XXXXXXX ,XXXXXXX ,SHIFT   ,BSPC    ,OSL(_NEO3)
 #define ___________________KOY_R4___________________ TAB     ,SPACE   ,ENTER   ,XXXXXXX ,XXXXXXX
-#define _______________________NUM_L1_______________________ _______ ,XXXXXXX ,_______ ,XXXXXXX ,_______ ,XXXXXXX
-#define _______________________NUM_L2_______________________ _______ ,OSM(MOD_LALT) ,OSM(MOD_LGUI) ,OSM(MOD_LSFT) ,OSM(MOD_LCTL) ,XXXXXXX
-#define _______________________NUM_L3_______________________ _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
+#define _______________________NUM_L1_______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_UP   ,XXXXXXX ,XXXXXXX
+#define _______________________NUM_L2_______________________ XXXXXXX ,XXXXXXX ,KC_LEFT ,KC_DOWN ,KC_RGHT ,XXXXXXX
+#define _______________________NUM_L3_______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
 #define _______________________NUM_R1_______________________ XXXXXXX ,DE_7    ,DE_8    ,DE_9    ,DE_PLUS ,DE_MINS
-#define _______________________NUM_R2_______________________ DE_0    ,DE_4    ,DE_5    ,DE_6    ,DE_COLN ,_______
+#define _______________________NUM_R2_______________________ XXXXXXX ,DE_4    ,DE_5    ,DE_6    ,DE_COLN ,_______
 #define _______________________NUM_R3_______________________ DE_0    ,DE_1    ,DE_2    ,DE_3    ,DE_ASTR ,_______
 #define ___________________NUM_L4___________________ XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______
 #define ___________________NUM_R4___________________ _______ ,_______ ,_______ ,XXXXXXX ,XXXXXXX
@@ -53,6 +54,14 @@
 #define _______________________WM_R3________________________ XXXXXXX ,WM_1    ,WM_2    ,WM_3    ,XXXXXXX ,XXXXXXX
 #define ___________________WM_L4____________________ XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______
 #define ___________________WM_R4____________________ _______ ,_______ ,_______ ,XXXXXXX ,XXXXXXX
+#define ____________________UMLAUT_L1_______________________ _______ ,_______ ,_______ ,DE_ODIA ,_______ ,_______
+#define ____________________UMLAUT_L2_______________________ _______ ,_______ ,DE_ADIA ,_______ ,_______ ,DE_UDIA
+#define ____________________UMLAUT_L3_______________________ _______ ,_______ ,_______ ,_______ ,_______ ,_______
+#define ____________________UMLAUT_R1_______________________ _______ ,_______ ,_______ ,_______ ,_______ ,_______
+#define ____________________UMLAUT_R2_______________________ _______ ,_______ ,_______ ,_______ ,DE_SS   ,_______
+#define ____________________UMLAUT_R3_______________________ _______ ,_______ ,_______ ,_______ ,_______ ,_______
+#define ________________UMLAUT_L4___________________ XXXXXXX ,XXXXXXX ,OSM(MOD_LSFT) ,KC_BSPC,OSL(_NEO3)
+#define ________________UMLAUT_R4___________________ TAB     ,SPACE   ,ENTER   ,XXXXXXX ,XXXXXXX
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -67,6 +76,7 @@
 #define _FKEYS 7
 #define _ADJUST 8
 #define _WM 9
+#define _UMLAUT 10
 
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
