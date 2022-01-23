@@ -18,9 +18,25 @@
 #define _______________________NUM_L3_______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
 #define _______________________NUM_R1_______________________ XXXXXXX ,DE_7    ,DE_8    ,DE_9    ,DE_PLUS ,DE_MINS
 #define _______________________NUM_R2_______________________ XXXXXXX ,DE_4    ,DE_5    ,DE_6    ,DE_COLN ,_______
-#define _______________________NUM_R3_______________________ DE_0    ,DE_1    ,DE_2    ,DE_3    ,DE_ASTR ,_______
+#define _______________________NUM_R3_______________________ XXXXXXX ,DE_1    ,DE_2    ,DE_3    ,DE_ASTR ,_______
 #define ___________________NUM_L4___________________ XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______
-#define ___________________NUM_R4___________________ _______ ,_______ ,_______ ,XXXXXXX ,XXXXXXX
+#define ___________________NUM_R4___________________ _______ ,DE_0   ,_______  ,XXXXXXX ,XXXXXXX
+#define _______________________SYML_L1______________________ _______ ,DE_AT   ,DE_UNDS ,DE_LBRC ,DE_RBRC ,DE_CIRC
+#define _______________________SYML_L2______________________ _______ ,A_BSLS  ,G_SLSH  ,S_LCBR  ,C_RCBR  ,DE_ASTR
+#define _______________________SYML_L3______________________ _______ ,DE_HASH ,DE_DLR  ,DE_PIPE ,DE_TILD ,DE_GRV
+#define _______________________SYML_R1______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
+#define _______________________SYML_R2______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
+#define _______________________SYML_R3______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
+#define ___________________SYML_L4__________________ XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______
+#define ___________________SYML_R4__________________ _______ ,_______ ,_______ ,XXXXXXX ,XXXXXXX
+#define _______________________SYMR_L1______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
+#define _______________________SYMR_L2______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
+#define _______________________SYMR_L3______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
+#define _______________________SYMR_R1______________________ DE_EXLM ,DE_LABK ,DE_RABK ,DE_EQL  ,DE_AMPR ,XXXXXXX
+#define _______________________SYMR_R2______________________ DE_QUES ,C_LPRN  ,S_RPRN  ,G_MINS  ,A_COLN  ,_______
+#define _______________________SYMR_R3______________________ DE_PLUS ,DE_PERC ,DQUO    ,QUOT    ,DE_SCLN ,_______
+#define ___________________SYMR_L4__________________ XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______
+#define ___________________SYMR_R4__________________ _______ ,_______ ,_______ ,XXXXXXX ,XXXXXXX
 #define _______________________NEO3_L1______________________ _______ ,DE_AT   ,DE_UNDS ,DE_LBRC ,DE_RBRC ,DE_CIRC
 #define _______________________NEO3_L2______________________ _______ ,A_BSLS  ,G_SLSH  ,S_LCBR  ,C_RCBR  ,DE_ASTR
 #define _______________________NEO3_L3______________________ _______ ,DE_HASH ,DE_DLR  ,DE_PIPE ,DE_TILD ,DE_GRV
@@ -77,6 +93,8 @@
 #define _ADJUST 8
 #define _WM 9
 #define _UMLAUT 10
+#define _SYML 11
+#define _SYMR 12
 
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
@@ -128,7 +146,7 @@ enum td_keycodes {
 
 #define A_COLN  LALT_T(KC_LANG1)
 #define A_BSLS  LALT_T(KC_LANG8)
-#define BSPC    LT(_FKEYS, KC_BSPC)
+#define BSPC    LT(_NUM, KC_BSPC)
 #define C_A     C(DE_A)
 #define C_C     C(DE_C)
 #define C_COMM  C(DE_COMM)
@@ -141,7 +159,7 @@ enum td_keycodes {
 #define C_LPRN  RCTL_T(KC_LANG4)
 #define C_RCBR  LCTL_T(KC_LANG5)
 #define COPY    TD(TD_COPY)
-#define ENTER   LT(_NEO3, KC_ENT)
+#define ENTER   LT(_SYML, KC_ENT)
 //#define ESC     LT(_NEO3, KC_ESC)
 #define ESC     KC_ESC
 #define FUNC_01 XXXXXXX
@@ -198,7 +216,7 @@ enum td_keycodes {
 #define SELECT  TD(TD_SELECT)
 #define S_RPRN  RSFT_T(KC_LANG3)
 #define S_LCBR  LSFT_T(KC_LANG6)
-#define SHIFT   LT(_NUM, SP_SHIFT)
+#define SHIFT   LT(_SYMR, SP_SHIFT)
 #define SPACE   LT(_NAV, KC_SPC)
 #define TAB     LT(_WM, KC_TAB)
 #define UNDO    TD(TD_UNDO)
