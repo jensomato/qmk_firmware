@@ -20,7 +20,7 @@
 #define _______________________NUM_R2_______________________ XXXXXXX ,DE_4    ,DE_5    ,DE_6    ,DE_COLN ,_______
 #define _______________________NUM_R3_______________________ XXXXXXX ,DE_1    ,DE_2    ,DE_3    ,DE_ASTR ,_______
 #define ___________________NUM_L4___________________ XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______
-#define ___________________NUM_R4___________________ _______ ,DE_0   ,_______  ,XXXXXXX ,XXXXXXX
+#define ___________________NUM_R4___________________ _______ ,ZERO    ,_______  ,XXXXXXX ,XXXXXXX
 #define _______________________SYML_L1______________________ _______ ,DE_AT   ,DE_UNDS ,DE_LBRC ,DE_RBRC ,DE_CIRC
 #define _______________________SYML_L2______________________ _______ ,A_BSLS  ,G_SLSH  ,S_LCBR  ,C_RCBR  ,DE_ASTR
 #define _______________________SYML_L3______________________ _______ ,DE_HASH ,DE_DLR  ,DE_PIPE ,DE_TILD ,DE_GRV
@@ -51,7 +51,7 @@
 #define _______________________NAV_R1_______________________ KC_PGUP ,KC_HOME ,KC_UP   ,KC_END  ,KC_INS  ,XXXXXXX
 #define _______________________NAV_R2_______________________ KC_PGDN ,KC_LEFT ,KC_DOWN ,KC_RGHT ,KC_DEL  ,MOUSE
 #define _______________________NAV_R3_______________________ SELECT  ,LEFT    ,UNDO    ,RIGHT   ,XXXXXXX ,_______
-#define ___________________NAV_L4___________________ XXXXXXX ,XXXXXXX ,KC_LSFT ,KC_BSPC ,C_S_T(KC_F12)
+#define ___________________NAV_L4___________________ XXXXXXX ,XXXXXXX ,KC_LSFT ,_______ ,C_S_T(KC_F12)
 #define ___________________NAV_R4___________________ _______ ,_______ ,NA_SWIT ,XXXXXXX ,XXXXXXX
 #define _______________________FKEYS_L1_____________________ _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
 #define _______________________FKEYS_L2_____________________ _______ ,KC_LALT ,KC_LGUI ,KC_LSFT ,KC_LCTL ,XXXXXXX
@@ -237,6 +237,7 @@ enum td_keycodes {
 #define WM_LEFT TD(TD_WM_LEFT)
 #define WM_RGHT TD(TD_WM_RIGHT)
 #define WM_UP   TD(TD_WM_UP)
+#define ZERO    LT(_NAV, DE_0)
 #define QUOT    TD(TD_QUOT)
 #define DQUO    TD(TD_DQUO)
 

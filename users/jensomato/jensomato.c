@@ -566,3 +566,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     &slash_key_override,
     NULL // Null terminate the array of overrides!
 };
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+  return update_tri_layer_state(state, _NUM, _NAV, _FKEYS);
+}
