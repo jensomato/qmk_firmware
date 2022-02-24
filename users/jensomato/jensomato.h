@@ -6,7 +6,6 @@
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 #define _______________________KOY_L1_______________________ XXXXXXX ,DE_K    ,DE_DOT  ,DE_O    ,DE_COMM ,DE_Y
 #define _______________________KOY_L2_______________________ ESC     ,HOME_H  ,HOME_A  ,HOME_E  ,HOME_I  ,DE_U
-//#define _______________________KOY_L3_______________________ XXXXXXX ,DE_X    ,DE_Q    ,DE_ADIA ,DE_UDIA ,DE_ODIA
 #define _______________________KOY_L3_______________________ XXXXXXX ,DE_X    ,DE_Q    ,OSL(_UMLAUT) ,DE_DQUO ,DE_SLSH
 #define _______________________KOY_R1_______________________ DE_V    ,DE_G    ,DE_C    ,DE_L    ,DE_Z    ,DE_SS
 #define _______________________KOY_R2_______________________ DE_D    ,HOME_T  ,HOME_R  ,HOME_N  ,HOME_S  ,HOME_F
@@ -30,7 +29,7 @@
 #define ___________________SYML_L4__________________ XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______
 #define ___________________SYML_R4__________________ _______ ,_______ ,_______ ,XXXXXXX ,XXXXXXX
 #define _______________________SYMR_L1______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
-#define _______________________SYMR_L2______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
+#define _______________________SYMR_L2______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,OSM_LS  ,OSM_LC  ,XXXXXXX
 #define _______________________SYMR_L3______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
 #define _______________________SYMR_R1______________________ DE_EXLM ,DE_LABK ,DE_RABK ,DE_EQL  ,DE_AMPR ,XXXXXXX
 #define _______________________SYMR_R2______________________ DE_QUES ,C_LPRN  ,S_RPRN  ,G_MINS  ,A_COLN  ,_______
@@ -212,6 +211,10 @@ enum td_keycodes {
 #define MOUSE   TD(TD_NAV)
 #define NA_BSPC LSFT_T(KC_BSPC)
 #define NA_SWIT TD(TD_TAB)
+#define OSM_LC  OSM(MOD_LCTL)
+#define OSM_RC  OSM(MOD_RCTL)
+#define OSM_LS  OSM(MOD_LSFT)
+#define OSM_RS  OSM(MOD_RSFT)
 #define PASTE   TD(TD_PASTE)
 #define SELECT  TD(TD_SELECT)
 #define S_RPRN  RSFT_T(KC_LANG3)
