@@ -6,42 +6,28 @@
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 #define _______________________KOY_L1_______________________ XXXXXXX ,DE_K    ,DE_DOT  ,DE_O    ,DE_COMM ,DE_Y
 #define _______________________KOY_L2_______________________ ESC     ,HOME_H  ,HOME_A  ,HOME_E  ,HOME_I  ,DE_U
-#define _______________________KOY_L3_______________________ XXXXXXX ,DE_X    ,DE_Q    ,OSL(_UMLAUT) ,DE_DQUO ,DE_SLSH
+#define _______________________KOY_L3_______________________ XXXXXXX ,DE_X    ,DE_Q    ,UML     ,DE_QUOT ,DE_SLSH
 #define _______________________KOY_R1_______________________ DE_V    ,DE_G    ,DE_C    ,DE_L    ,DE_Z    ,DE_SS
 #define _______________________KOY_R2_______________________ DE_D    ,HOME_T  ,HOME_R  ,HOME_N  ,HOME_S  ,HOME_F
 #define _______________________KOY_R3_______________________ DE_B    ,DE_P    ,DE_W    ,DE_M    ,DE_J    ,OSL(_WM)
 #define ___________________KOY_L4___________________ XXXXXXX ,XXXXXXX ,SHIFT   ,BSPC    ,OSL(_NEO3)
 #define ___________________KOY_R4___________________ TAB     ,SPACE   ,ENTER   ,XXXXXXX ,XXXXXXX
-#define _______________________NUM_L1_______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_UP   ,XXXXXXX ,XXXXXXX
+#define _______________________NUM_L1_______________________ XXXXXXX ,XXXXXXX ,_______ ,KC_UP   ,_______ ,XXXXXXX
 #define _______________________NUM_L2_______________________ XXXXXXX ,XXXXXXX ,KC_LEFT ,KC_DOWN ,KC_RGHT ,XXXXXXX
 #define _______________________NUM_L3_______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
 #define _______________________NUM_R1_______________________ XXXXXXX ,DE_7    ,DE_8    ,DE_9    ,DE_PLUS ,DE_MINS
-#define _______________________NUM_R2_______________________ XXXXXXX ,DE_4    ,DE_5    ,DE_6    ,DE_COLN ,_______
+#define _______________________NUM_R2_______________________ DE_SLSH ,DE_4    ,DE_5    ,DE_6    ,DE_COLN ,_______
 #define _______________________NUM_R3_______________________ XXXXXXX ,DE_1    ,DE_2    ,DE_3    ,DE_ASTR ,_______
 #define ___________________NUM_L4___________________ XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______
 #define ___________________NUM_R4___________________ _______ ,ZERO    ,_______  ,XXXXXXX ,XXXXXXX
-#define _______________________SYML_L1______________________ _______ ,DE_AT   ,DE_UNDS ,DE_LBRC ,DE_RBRC ,DE_CIRC
-#define _______________________SYML_L2______________________ _______ ,A_BSLS  ,G_SLSH  ,S_LCBR  ,C_RCBR  ,DE_ASTR
-#define _______________________SYML_L3______________________ _______ ,DE_HASH ,DE_DLR  ,DE_PIPE ,DE_TILD ,DE_GRV
-#define _______________________SYML_R1______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
-#define _______________________SYML_R2______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
-#define _______________________SYML_R3______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
-#define ___________________SYML_L4__________________ XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______
-#define ___________________SYML_R4__________________ _______ ,_______ ,_______ ,XXXXXXX ,XXXXXXX
-#define _______________________SYMR_L1______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
-#define _______________________SYMR_L2______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,OSM_LS  ,OSM_LC  ,XXXXXXX
-#define _______________________SYMR_L3______________________ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
-#define _______________________SYMR_R1______________________ DE_EXLM ,DE_LABK ,DE_RABK ,DE_EQL  ,DE_AMPR ,XXXXXXX
-#define _______________________SYMR_R2______________________ DE_QUES ,C_LPRN  ,S_RPRN  ,G_MINS  ,A_COLN  ,_______
-#define _______________________SYMR_R3______________________ DE_PLUS ,DE_PERC ,DQUO    ,QUOT    ,DE_SCLN ,_______
-#define ___________________SYMR_L4__________________ XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______
-#define ___________________SYMR_R4__________________ _______ ,_______ ,_______ ,XXXXXXX ,XXXXXXX
-#define _______________________NEO3_L1______________________ _______ ,DE_AT   ,DE_UNDS ,DE_LBRC ,DE_RBRC ,DE_CIRC
-#define _______________________NEO3_L2______________________ _______ ,A_BSLS  ,G_SLSH  ,S_LCBR  ,C_RCBR  ,DE_ASTR
-#define _______________________NEO3_L3______________________ _______ ,DE_HASH ,DE_DLR  ,DE_PIPE ,DE_TILD ,DE_GRV
-#define _______________________NEO3_R1______________________ DE_EXLM ,DE_LABK ,DE_RABK ,DE_EQL  ,DE_AMPR ,XXXXXXX
-#define _______________________NEO3_R2______________________ DE_QUES ,C_LPRN  ,S_RPRN  ,G_MINS  ,A_COLN  ,_______
-#define _______________________NEO3_R3______________________ DE_PLUS ,DE_PERC ,DQUO    ,QUOT    ,DE_SCLN ,_______
+//#define _______________________NEO3_L1______________________ _______ ,DE_AT   ,DE_LBRC ,DE_UNDS ,DE_RBRC ,DE_CIRC
+#define _______________________NEO3_L1______________________ _______ ,DE_AT   ,DE_DQUO ,DE_UNDS ,DE_QUOT ,DE_CIRC
+//#define _______________________NEO3_L2______________________ _______ ,A_BSLS  ,DE_HASH ,DE_QUOT ,DE_DQUO ,DE_ASTR
+#define _______________________NEO3_L2______________________ _______ ,A_BSLS  ,DE_LBRC ,DE_HASH ,DE_RBRC ,DE_ASTR
+#define _______________________NEO3_L3______________________ _______ ,DE_PIPE ,CURR    ,DE_SLSH ,DE_TILD ,DE_GRV
+#define _______________________NEO3_R1______________________ DE_EXLM ,DE_LABK ,DE_EQL  ,DE_RABK ,DE_AMPR ,XXXXXXX
+#define _______________________NEO3_R2______________________ DE_QUES ,C_LPRN  ,DE_MINS ,DE_RPRN ,DE_SCLN ,_______
+#define _______________________NEO3_R3______________________ DE_PLUS ,DE_LCBR ,DE_COLN ,DE_RCBR ,DE_PERC ,_______
 #define ___________________NEO3_L4__________________ XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______
 #define ___________________NEO3_R4__________________ _______ ,_______ ,_______ ,XXXXXXX ,XXXXXXX
 #define _______________________NAV_L1_______________________ _______ ,C_W     ,XXXXXXX ,XXXXXXX ,_______ ,C_Y
@@ -49,7 +35,7 @@
 #define _______________________NAV_L3_______________________ _______ ,C_A     ,C_X     ,C_C     ,_______ ,C_F
 #define _______________________NAV_R1_______________________ KC_PGUP ,KC_HOME ,KC_UP   ,KC_END  ,KC_INS  ,XXXXXXX
 #define _______________________NAV_R2_______________________ KC_PGDN ,KC_LEFT ,KC_DOWN ,KC_RGHT ,KC_DEL  ,MOUSE
-#define _______________________NAV_R3_______________________ SELECT  ,LEFT    ,UNDO    ,RIGHT   ,XXXXXXX ,_______
+#define _______________________NAV_R3_______________________ SELECT  ,BSPC    ,KC_ENT  ,RIGHT   ,XXXXXXX ,_______
 #define ___________________NAV_L4___________________ XXXXXXX ,XXXXXXX ,KC_LSFT ,_______ ,C_S_T(KC_F12)
 #define ___________________NAV_R4___________________ _______ ,_______ ,NA_SWIT ,XXXXXXX ,XXXXXXX
 #define _______________________FKEYS_L1_____________________ _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
@@ -92,8 +78,6 @@
 #define _ADJUST 8
 #define _WM 9
 #define _UMLAUT 10
-#define _SYML 11
-#define _SYMR 12
 
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
@@ -119,6 +103,7 @@ enum custom_keycodes {
 enum td_keycodes {
     TD_TAB, // Our example key: `LALT` when held, `(` when tapped. Add additional keycodes for each tapdance.
     TD_COPY,
+    TD_CURR,
     TD_PASTE,
     TD_UNDO,
     TD_SELECT,
@@ -158,7 +143,9 @@ enum td_keycodes {
 #define C_LPRN  RCTL_T(KC_LANG4)
 #define C_RCBR  LCTL_T(KC_LANG5)
 #define COPY    TD(TD_COPY)
-#define ENTER   LT(_SYML, KC_ENT)
+#define CURR    TD(TD_CURR)
+#define ENTER   LT(_NEO3, KC_ENT)
+#define UML     OSL(_UMLAUT)
 //#define ESC     LT(_NEO3, KC_ESC)
 #define ESC     KC_ESC
 #define FUNC_01 XXXXXXX
@@ -219,7 +206,8 @@ enum td_keycodes {
 #define SELECT  TD(TD_SELECT)
 #define S_RPRN  RSFT_T(KC_LANG3)
 #define S_LCBR  LSFT_T(KC_LANG6)
-#define SHIFT   LT(_SYMR, SP_SHIFT)
+#define SHIFT   LT(_NEO3, SP_SHIFT)
+//#define SHIFT   OSM(MOD_LSFT)
 #define SPACE   LT(_NAV, KC_SPC)
 #define TAB     LT(_WM, KC_TAB)
 #define UNDO    TD(TD_UNDO)
