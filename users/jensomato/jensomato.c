@@ -92,7 +92,7 @@ void double_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_state = cur_dance(state);
     switch (td_state) {
         case SINGLE_TAP:
-            switch (state->keycode) {
+            switch (TAP_DANCE_KEYCODE(state)) {
                 case DQUO:
                     tap_code16(DE_DQUO);
                     break;
@@ -102,7 +102,7 @@ void double_finished(qk_tap_dance_state_t *state, void *user_data) {
             }
             break;
         case DOUBLE_TAP:
-            switch (state->keycode) {
+            switch (TAP_DANCE_KEYCODE(state)) {
                 case DQUO:
                     tap_code16(DE_DQUO);
                     tap_code16(DE_DQUO);
@@ -131,7 +131,7 @@ void cursor_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_state = cur_dance(state);
     switch (td_state) {
         case SINGLE_TAP:
-            switch (state->keycode) {
+            switch (TAP_DANCE_KEYCODE(state)) {
                 case LEFT:
                     register_mods(MOD_LCTL);
                     register_code(KC_LEFT);
@@ -144,7 +144,7 @@ void cursor_finished(qk_tap_dance_state_t *state, void *user_data) {
             break;
         case SINGLE_HOLD:
         case DOUBLE_TAP:
-            switch (state->keycode) {
+            switch (TAP_DANCE_KEYCODE(state)) {
                 case LEFT:
                     register_mods(MOD_LCTL|MOD_LSFT);
                     register_code(KC_LEFT);
@@ -163,7 +163,7 @@ void cursor_finished(qk_tap_dance_state_t *state, void *user_data) {
 void cursor_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (td_state) {
         case SINGLE_TAP:
-            switch (state->keycode) {
+            switch (TAP_DANCE_KEYCODE(state)) {
                 case LEFT:
                     unregister_code(KC_LEFT);
                     unregister_mods(MOD_LCTL);
@@ -176,7 +176,7 @@ void cursor_reset(qk_tap_dance_state_t *state, void *user_data) {
             break;
         case SINGLE_HOLD:
         case DOUBLE_TAP:
-            switch (state->keycode) {
+            switch (TAP_DANCE_KEYCODE(state)) {
                 case LEFT:
                     unregister_code(KC_LEFT);
                     unregister_mods(MOD_LCTL|MOD_LSFT);
@@ -196,7 +196,7 @@ void wm_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_state = cur_dance(state);
     switch (td_state) {
         case SINGLE_TAP:
-            switch (state->keycode) {
+            switch (TAP_DANCE_KEYCODE(state)) {
                 case TD(TD_WM1):
                     send_with_gui(DE_1);
                     break;
@@ -239,7 +239,7 @@ void wm_finished(qk_tap_dance_state_t *state, void *user_data) {
             }
             break;
         case DOUBLE_TAP:
-            switch (state->keycode) {
+            switch (TAP_DANCE_KEYCODE(state)) {
                 case TD(TD_WM4):
                     send_with_gui(KC_LEFT);
                     break;
@@ -255,7 +255,7 @@ void wm_finished(qk_tap_dance_state_t *state, void *user_data) {
             }
             break;
         case SINGLE_HOLD:
-            switch (state->keycode) {
+            switch (TAP_DANCE_KEYCODE(state)) {
                 case TD(TD_WM1):
                     send_with_shift_gui(DE_1);
                     break;
@@ -348,7 +348,7 @@ bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
             case KC_1 ... KC_0:
             case DE_MINS:
             case DE_UNDS:
-            case KC_LANG2: // minus key with homerow mods
+            case KC_LNG2: // minus key with homerow mods
             case KC_BSPC:
                 // If mod chording disable the mods
                 if (record->event.pressed && (get_mods() != 0)) {

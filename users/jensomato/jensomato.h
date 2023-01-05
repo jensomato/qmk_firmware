@@ -128,8 +128,8 @@ enum td_keycodes {
     TD_NAV,
 };
 
-#define A_COLN  LALT_T(KC_LANG1)
-#define A_BSLS  LALT_T(KC_LANG8)
+#define A_COLN  LALT_T(KC_LNG1)
+#define A_BSLS  LALT_T(KC_LNG8)
 #define BSPC    LT(_NUM, KC_BSPC)
 #define C_A     C(DE_A)
 #define C_C     C(DE_C)
@@ -140,8 +140,8 @@ enum td_keycodes {
 #define C_X     C(DE_X)
 #define C_Y     C(DE_Y)
 #define C_Z     C(DE_Z)
-#define C_LPRN  RCTL_T(KC_LANG4)
-#define C_RCBR  LCTL_T(KC_LANG5)
+#define C_LPRN  RCTL_T(KC_LNG4)
+#define C_RCBR  LCTL_T(KC_LNG5)
 #define COPY    TD(TD_COPY)
 #define CURR    TD(TD_CURR)
 #define ENTER   LT(_NEO3, KC_ENT)
@@ -183,8 +183,8 @@ enum td_keycodes {
 #define FUNC_33 TD(TD_WM1)
 #define FUNC_34 XXXXXXX
 #define FUNC_35 OSL(_WM)
-#define G_MINS  RGUI_T(KC_LANG2)
-#define G_SLSH  LGUI_T(KC_LANG7)
+#define G_MINS  RGUI_T(KC_LNG2)
+#define G_SLSH  LGUI_T(KC_LNG7)
 #define HOME_T  RCTL_T(DE_T)
 #define HOME_I  LCTL_T(DE_I)
 #define HOME_E  LSFT_T(DE_E)
@@ -204,8 +204,8 @@ enum td_keycodes {
 #define OSM_RS  OSM(MOD_RSFT)
 #define PASTE   TD(TD_PASTE)
 #define SELECT  TD(TD_SELECT)
-#define S_RPRN  RSFT_T(KC_LANG3)
-#define S_LCBR  LSFT_T(KC_LANG6)
+#define S_RPRN  RSFT_T(KC_LNG3)
+#define S_LCBR  LSFT_T(KC_LNG6)
 #define SHIFT   LT(_NEO3, SP_SHIFT)
 //#define SHIFT   OSM(MOD_LSFT)
 #define SPACE   LT(_NAV, KC_SPC)
