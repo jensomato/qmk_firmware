@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_180;
 }
@@ -140,15 +140,15 @@ static void render_status(void) {
         case _KOY:
             oled_write_P(PSTR("Default\n"), false);
             break;
-        //case _LOWER:
-        //    oled_write_P(PSTR("Lower\n"), false);
-        //    break;
-        //case _RAISE:
-        //    oled_write_P(PSTR("Raise\n"), false);
-        //    break;
-        //case _ADJUST:
-        //    oled_write_P(PSTR("Adjust\n"), false);
-        //    break;
+        case _NAV:
+            oled_write_P(PSTR("Nav\n"), false);
+            break;
+        case _NUM:
+            oled_write_P(PSTR("Num\n"), false);
+            break;
+        case _FKEYS:
+            oled_write_P(PSTR("Function\n"), false);
+            break;
         default:
             oled_write_P(PSTR("Undefined\n"), false);
     }
@@ -160,12 +160,13 @@ static void render_status(void) {
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_kyria_logo();
     }
+    return false;
 }
 #endif
 
