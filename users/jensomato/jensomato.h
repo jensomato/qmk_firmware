@@ -234,13 +234,13 @@ enum td_keycodes {
 
 //#define LAYOUT_wrapper(...)        LAYOUT_split_3x6_5(__VA_ARGS__)
 // Function to determine the current tapdance state
-uint8_t cur_dance(qk_tap_dance_state_t *state);
+uint8_t cur_dance(tap_dance_state_t *state);
 
 // Declare your tapdance functions:
 // `finished` and `reset` functions for each tapdance keycode
-void cstab_finished(qk_tap_dance_state_t *state, void *user_data);
-void cstab_reset(qk_tap_dance_state_t *state, void *user_data);
-void select_finished(qk_tap_dance_state_t *state, void *user_data);
-void select_reset(qk_tap_dance_state_t *state, void *user_data);
+void cstab_finished(tap_dance_state_t *state, void *user_data);
+void cstab_reset(tap_dance_state_t *state, void *user_data);
+void select_finished(tap_dance_state_t *state, void *user_data);
+void select_reset(tap_dance_state_t *state, void *user_data);
 void send_with_gui(uint16_t keycode);
 void send_with_shift_gui(uint16_t keycode);
