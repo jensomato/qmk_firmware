@@ -1,4 +1,4 @@
-SRC += jensomato.c
+INTROSPECTION_KEYMAP_C = users/jensomato/jensomato.c
 SRC += casemodes.c
 COMMAND_ENABLE = no # Commands for debug and configuration
 UNICODE_ENABLE = no # Unicode

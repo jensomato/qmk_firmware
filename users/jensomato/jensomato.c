@@ -531,7 +531,6 @@ enum combo_events {
     OE_COMBO,
     COMBO_LENGTH
 };
-uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
 
 const uint16_t PROGMEM copy_combo[] = {DE_Q, DE_ADIA, COMBO_END};
 const uint16_t PROGMEM paste_combo[] = {DE_UDIA, DE_ADIA, COMBO_END};
