@@ -1,7 +1,6 @@
 #include "action.h"
 #include "quantum.h"
 #include "jensomato.h"
-#include "casemodes.h"
 
 void send_with_gui(uint16_t keycode) {
     register_code(KC_LGUI);
@@ -341,27 +340,27 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_NAV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, nav_finished, nav_reset),
 };
 
-bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
-        switch (keycode) {
-            // Keycodes to ignore (don't disable caps word)
-            case KC_A ... KC_Z:
-            case KC_1 ... KC_0:
-            case DE_MINS:
-            case DE_UNDS:
-            case KC_LNG2: // minus key with homerow mods
-            case KC_BSPC:
-                // If mod chording disable the mods
-                if (record->event.pressed && (get_mods() != 0)) {
-                    return true;
-                }
-                break;
-            default:
-                if (record->event.pressed) {
-                    return true;
-                }
-                break;
-        }
-        return false;
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case DE_MINS:
+        case DE_UNDS:
+        case KC_LNG2: // minus key with homerow mods
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_UNDS:
+        case KC_MINS:
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -370,34 +369,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //bool isOneShotAlt = get_oneshot_mods() & MOD_MASK_ALT || get_oneshot_locked_mods() & MOD_MASK_ALT;
     //bool isOneShotGui = get_oneshot_mods() & MOD_MASK_GUI || get_oneshot_locked_mods() & MOD_MASK_GUI;
     //bool isAnyOneShot = isOneShotShift || isOneShotCtrl || isOneShotAlt || isOneShotGui;
-    // Process case modes
-    if (!process_case_modes(keycode, record)) {
-        return false;
-    }
     switch (keycode) {
         case SHIFT:
             if (record->tap.count > 0) {
                 if (record->event.pressed) {
-                    if (caps_word_enabled()) {
-                        disable_caps_word();
+                    if (is_caps_word_on()) {
+                        caps_word_off();
                     } else {
                         if (!isOneShotShift) {
                             add_oneshot_mods(MOD_BIT(KC_LSFT));
                         } else {
                             del_oneshot_mods(MOD_BIT(KC_LSFT));
                             unregister_mods(MOD_BIT(KC_LSFT));
-                            enable_caps_word();
+                            caps_word_on();
                         }
                     }
                 }
                 return false;
             }
             break;
-        case CAPSWORD:
-            if (record->event.pressed) {
-                enable_caps_word();
-            }
-            return false;
         case A_BSLS:
             if (record->tap.count > 0) {
                 if (record->event.pressed) {

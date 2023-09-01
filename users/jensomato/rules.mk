@@ -1,5 +1,4 @@
 INTROSPECTION_KEYMAP_C = users/jensomato/jensomato.c
-SRC += casemodes.c
 COMMAND_ENABLE = no # Commands for debug and configuration
 UNICODE_ENABLE = no # Unicode
 CONSOLE_ENABLE = no
@@ -9,3 +8,4 @@ TAP_DANCE_ENABLE = yes
 LEADER_ENABLE = no
 COMBO_ENABLE = yes
 KEY_OVERRIDE_ENABLE = yes
+CAPS_WORD_ENABLE = yes

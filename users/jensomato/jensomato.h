@@ -95,8 +95,7 @@ typedef enum {
 } td_state_t;
 
 enum custom_keycodes {
-    CAPSWORD = SAFE_RANGE,
-    SP_SHIFT,
+    SP_SHIFT = SAFE_RANGE,
 };
 
 // Tap Dance keycodes
